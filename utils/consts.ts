@@ -9,6 +9,7 @@ export enum ROUTES {
   MAIN_PAGE = "MainPage",
   ADMIN_PAGE = "AdminPage",
 }
+export const BASE_URL: Readonly<string> = "http://localhost:3000/";
 
 export const containerStyles = StyleSheet.create({
   container: {
