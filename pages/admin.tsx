@@ -1,13 +1,15 @@
 import React from "react";
 import { View } from "react-native";
-import { BottomNavigation } from "../componets/bottomNavigation";
+// import { BottomNavigation } from "../componets/BottomNavigation";
 import { containerStyles } from "../utils/consts";
-import { AdminListing } from "../componets/adminListing";
+import { BottomNavigation } from "../components/BottomNavigation";
+import { AdminContainer } from "../components/AdminContainer";
 export const AdminPage = ({ navigation }: any) => {
   return (
     <View style={containerStyles.container}>
       <View style={containerStyles.contentContainer}>
-        <AdminListing />
+        {/* <AdminListing /> */}
+        <AdminContainer />
       </View>
       <BottomNavigation navigation={navigation}></BottomNavigation>
     </View>
