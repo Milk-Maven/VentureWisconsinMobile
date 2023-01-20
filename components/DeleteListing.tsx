@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Button, View } from "react-native";
 import { useRecoilState } from "recoil";
 import { atomSearchedListing } from "../utils/recoil";
+import { listingsServer } from "../utils/server";
 import { SearchListing } from "./SearchListing";
 
 export const DeleteListing = () => {
@@ -18,7 +19,13 @@ export const DeleteListing = () => {
     <View>
       <SearchListing />
       {!!selectedListing?.id && (
-        <Button title={`delete: ${selectedListing?.name}?`} />
+        <Button
+          title={`delete: ${selectedListing?.name}?`}
+          onPress={() => {
+            console.log(selectedListing);
+            listingsServer.deleteListing(selectedListing);
+          }}
+        />
       )}
     </View>
   );

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 import { useRecoilState } from "recoil";
 import { atomSearchedListing } from "../utils/recoil";
-import { getAllUsers } from "../utils/server";
+import { getAllListings } from "../utils/server";
 export const SearchListing = () => {
   const fetchListings = (input = "") => {
-    getAllUsers({ nameStartsWith: input }).then(
+    getAllListings({ nameStartsWith: input }).then(
       (response: { id: string; name: string }[]) => {
         const options = response.map((listing) => {
           return { ...listing, title: listing.name };

@@ -8,8 +8,9 @@ import {
   View,
 } from "react-native";
 import { z } from "zod";
-import { Listing } from "../utils/interfaces";
-import { createUser } from "../utils/server";
+// import { Listing } from "../utils/interfaces";
+import { listingsServer } from "../utils/server";
+import { Listing } from "../../VentureWisconsinShared/index";
 export const CreateListing: React.FC<{ listingToUpdate?: Listing }> = ({
   listingToUpdate,
 }) => {
@@ -132,7 +133,7 @@ export const CreateListing: React.FC<{ listingToUpdate?: Listing }> = ({
                   phone,
                   website,
                 });
-                const res = await createUser(parsedPayload);
+                const res = await listingsServer.createListing(parsedPayload);
                 setName("");
                 setAddress("");
                 setCategory("");

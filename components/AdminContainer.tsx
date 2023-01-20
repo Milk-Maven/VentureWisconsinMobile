@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { useRecoilState } from "recoil";
-import { atomSearchedListing } from "../utils/recoil";
 import { CreateListing } from "./CreateListing";
 import { DeleteListing } from "./DeleteListing";
 import { UpdateListing } from "./UpdateListing";
