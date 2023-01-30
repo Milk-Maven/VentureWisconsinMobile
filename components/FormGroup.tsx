@@ -89,13 +89,8 @@ export const FormGroup = <T extends Object>({
               const formValues = Object.keys(formState).reduce((prev, curr) => {
                 return { ...prev, [curr]: formState[curr].get };
               }, {});
-              console.log(formValues);
-
-              const parsedPayload = formValidator.parse(formValues);
-
-              console.log("here");
-              const res = onSubmit(parsedPayload as T);
-              console.log("res", res);
+              const parsedPayload = formValidator.parse(formValues) as T;
+              onSubmit(parsedPayload);
 
               resetForm();
             } catch (e) {
