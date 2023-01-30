@@ -1,12 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Button, View } from "react-native";
 import { useRecoilState } from "recoil";
-import { TrpcContext } from "../App";
+// import { t } from "../providers/providers";
 import { atomSearchedListing } from "../utils/recoil";
 import { SearchListing } from "./SearchListing";
 
 export const DeleteListing = () => {
-  const t = useContext(TrpcContext);
   const [selectedListing, setSelectedListing] =
     useRecoilState(atomSearchedListing);
   useEffect(() => {
@@ -23,7 +22,7 @@ export const DeleteListing = () => {
         <Button
           title={`delete: ${selectedListing?.name}?`}
           onPress={() => {
-            t.listingRemove.mutate(selectedListing.name);
+            // t.listingRemove.useMutation();
           }}
         />
       )}

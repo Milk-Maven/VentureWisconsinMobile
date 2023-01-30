@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { CreateListing } from "./CreateListing";
+import { FormGroup } from "./FormGroup";
 import { DeleteListing } from "./DeleteListing";
 import { UpdateListing } from "./UpdateListing";
+import { z } from "zod";
+import { t } from "../providers/providers";
 export enum TableToModify {
   "listings" = "listings",
   "coupons" = "coupons",
@@ -18,6 +20,7 @@ export const AdminContainer = () => {
     Action.create
   );
   const [table, setFeature] = useState<TableToModify>(TableToModify.listings);
+  const hook = t.listingCreate.useMutation();
   useEffect(() => {}, []);
   return (
     <View>
@@ -56,7 +59,41 @@ export const AdminContainer = () => {
       </View>
       {table === TableToModify.listings && (
         <View>
-          {action === Action.create && <CreateListing />}
+          {action === Action.create && (
+            <FormGroup
+              listingToUpdate={{} as any}
+              formKeys={[
+                "address",
+                "attributes",
+                "category",
+                "city",
+                "description",
+                "displayTitle",
+                "email",
+                "images",
+                "name",
+                "phone",
+                "subTitle",
+                "website",
+                "zipcode",
+              ]}
+              formValidator={z.object({
+                name: z.string(),
+                address: z.string(),
+                category: z.string(),
+                description: z.string(),
+                email: z.string(),
+                phone: z.string(),
+                website: z.string(),
+                city: z.string(),
+                zipcode: z.string(),
+                displayTitle: z.string(),
+                attributes: z.string(),
+                images: z.string(),
+              })}
+              onSubmit={hook.mutate}
+            />
+          )}
           {action === Action.update && <UpdateListing />}
           {action === Action.delete && <DeleteListing />}
         </View>
@@ -70,13 +107,6 @@ export const AdminContainer = () => {
 const styles = StyleSheet.create({
   buttonContainer: {
     display: "flex",
-    // flexDirection: "row",
-    // width: "100%",
-    // display: "flex",
-    // height: 20,
-    // paddingTop: 5,
-    // paddingHorizontal: 5,
-    // justifyContent: "",
     alignContent: "center",
   },
 });

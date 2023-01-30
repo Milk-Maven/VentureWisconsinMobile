@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 import { useRecoilState } from "recoil";
+import { t } from "../providers/providers";
 import { atomSearchedListing } from "../utils/recoil";
-import { getAllListings } from "../utils/server";
 export const SearchListing = () => {
   const fetchListings = (input = "") => {
-    getAllListings({ nameStartsWith: input }).then(
-      (response: { id: string; name: string }[]) => {
-        const options = response.map((listing) => {
-          return { ...listing, title: listing.name };
-        });
-        setOptions(options);
-      }
-    );
+    // .then((listings) => {
+    //   const options = listings.map((listing) => {
+    //     return { ...listing, title: listing.name };
+    //   });
+    //   setOptions(options);
+    // });
   };
   const [options, setOptions] = useState<any>([]);
   const [selectedItem, setSelectedItem] =
     useRecoilState<any>(atomSearchedListing);
   useEffect(() => {
-    fetchListings();
+    // fetchListings();
   }, []);
 
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import { ROUTES } from "../utils/consts";
 
 export const BottomNavigation: React.FC<{ navigation: any }> = ({
@@ -41,9 +41,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: "5%",
     display: "flex",
     justifyContent: "center",
-    // backgroundColor: "blue",
-    // borderWidth: 1,
-    // borderColor: "gray",
   },
   buttonText: {
     color: "gray",
