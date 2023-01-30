@@ -9,6 +9,7 @@ import { RecoilRoot } from "recoil";
 import { t } from "./providers/providers";
 import { httpBatchLink } from "@trpc/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BottomNavigation } from "./components/BottomNavigation";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
                 options={{ title: "Main" }}
               />
             </Stack.Navigator>
+            <BottomNavigation navigation={{}} />
           </NavigationContainer>
         </RecoilRoot>
       </QueryClientProvider>

@@ -55,7 +55,6 @@ export const FormGroup = <T extends Object>({
               <Text style={styles.inputText} key={`${i}text`}>
                 {input}
               </Text>
-
               <TextInput
                 key={`${i}input`}
                 style={styles.input}
@@ -66,40 +65,53 @@ export const FormGroup = <T extends Object>({
           );
         })}
 
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flex: 1,
+            justifyContent: "space-around",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              ...styles.button,
+              backgroundColor: "#FAF43D",
+            }}
+            onPress={async () => {
+              resetForm();
+            }}
+          >
+            <Text style={styles.buttonText}>reset</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              ...styles.button,
+            }}
+            onPress={async () => {
+              try {
+                const formValues = Object.keys(formState).reduce(
+                  (prev, curr) => {
+                    return { ...prev, [curr]: formState[curr].get };
+                  },
+                  {}
+                );
+                const parsedPayload = formValidator.parse(formValues) as T;
+                onSubmit(parsedPayload);
+
+                resetForm();
+              } catch (e) {
+                console.log(e);
+              }
+            }}
+          >
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
+        </View>
+
         <View>
           <Text style={{ textAlign: "center" }}>listingID: {createdId} </Text>
         </View>
-        <TouchableOpacity
-          style={{
-            ...styles.button,
-            backgroundColor: "#FAF43D",
-          }}
-          onPress={async () => {
-            resetForm();
-          }}
-        >
-          <Text style={styles.buttonText}>reset</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            ...styles.button,
-          }}
-          onPress={async () => {
-            try {
-              const formValues = Object.keys(formState).reduce((prev, curr) => {
-                return { ...prev, [curr]: formState[curr].get };
-              }, {});
-              const parsedPayload = formValidator.parse(formValues) as T;
-              onSubmit(parsedPayload);
-
-              resetForm();
-            } catch (e) {
-              console.log(e);
-            }
-          }}
-        >
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
       </ScrollView>
       <View
         style={{

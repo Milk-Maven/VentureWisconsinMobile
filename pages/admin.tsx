@@ -10,7 +10,7 @@ export const AdminPage = ({ navigation }: any) => {
         {/* <AdminListing /> */}
         <AdminContainer />
       </View>
-      <BottomNavigation navigation={navigation}></BottomNavigation>
+      {/* <BottomNavigation navigation={navigation}></BottomNavigation> */}
     </View>
   );
 };

@@ -8,7 +8,7 @@ export const MainPage = ({ navigation }: any) => {
       <View style={containerStyles.contentContainer}>
         <Text>Main</Text>
       </View>
-      <BottomNavigation navigation={navigation}></BottomNavigation>
+      {/* <BottomNavigation navigation={navigation}></BottomNavigation> */}
     </View>
   );
 };
