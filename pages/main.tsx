@@ -5,10 +5,7 @@ import { containerStyles } from "../utils/consts";
 export const MainPage = ({ navigation }: any) => {
   return (
     <View style={containerStyles.container}>
-      <View style={containerStyles.contentContainer}>
-        <Text>Main</Text>
-      </View>
-      {/* <BottomNavigation navigation={navigation}></BottomNavigation> */}
+      <Text>Main</Text>
     </View>
   );
 };

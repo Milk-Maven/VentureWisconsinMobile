@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { FormGroup } from "./FormGroup";
 import { DeleteListing } from "./DeleteListing";
 import { UpdateListing } from "./UpdateListing";
 import { z } from "zod";
 import { t } from "../providers/providers";
+import { SegmentedButtons } from "./SegmentedButtons";
+
 export enum TableToModify {
   "listings" = "listings",
   "coupons" = "coupons",
@@ -21,42 +23,54 @@ export const AdminContainer = () => {
   );
   const [table, setFeature] = useState<TableToModify>(TableToModify.listings);
   const hook = t.listingCreate.useMutation();
+
   useEffect(() => {}, []);
   return (
     <View>
-      <View style={styles.buttonContainer}>
-        <Button
-          title={`table to modify: ${table}`}
-          onPress={() => {
-            if (table === TableToModify.listings) {
-              setFeature(TableToModify.coupons);
-            } else if (table === TableToModify.coupons) {
-              setFeature(TableToModify.users);
-            } else {
+      <SegmentedButtons
+        buttons={[
+          {
+            text: TableToModify.listings,
+            onClick: () => {
               setFeature(TableToModify.listings);
-            }
-            setAction(Action.create);
-          }}
-        ></Button>
-
-        <Button
-          title={`action to perform: ${action}`}
-          onPress={() => {
-            if (action === Action.create) {
-              setAction(Action.update);
-              return;
-            }
-            if (action === Action.update) {
-              setAction(Action.delete);
-              return;
-            }
-            if (action === Action.delete) {
+            },
+          },
+          {
+            text: TableToModify.coupons,
+            onClick: () => {
+              setFeature(TableToModify.coupons);
+            },
+          },
+          {
+            text: TableToModify.users,
+            onClick: () => {
+              setFeature(TableToModify.users);
+            },
+          },
+        ]}
+      />
+      <SegmentedButtons
+        buttons={[
+          {
+            text: Action.create,
+            onClick: () => {
               setAction(Action.create);
-              return;
-            }
-          }}
-        ></Button>
-      </View>
+            },
+          },
+          {
+            text: Action.update,
+            onClick: () => {
+              setAction(Action.update);
+            },
+          },
+          {
+            text: Action.delete,
+            onClick: () => {
+              setAction(Action.delete);
+            },
+          },
+        ]}
+      />
       {table === TableToModify.listings && (
         <View>
           {action === Action.create && (
@@ -108,5 +122,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     display: "flex",
     alignContent: "center",
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
   },
 });

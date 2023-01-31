@@ -51,7 +51,7 @@ export const FormGroup = <T extends Object>({
       <ScrollView contentContainerStyle={styles.container}>
         {Object.keys(formState).map((input, i) => {
           return (
-            <>
+            <View key={i}>
               <Text style={styles.inputText} key={`${i}text`}>
                 {input}
               </Text>
@@ -61,7 +61,7 @@ export const FormGroup = <T extends Object>({
                 onChangeText={formState[input].set}
                 value={formState[input].get}
               />
-            </>
+            </View>
           );
         })}
 
@@ -98,7 +98,6 @@ export const FormGroup = <T extends Object>({
                 );
                 const parsedPayload = formValidator.parse(formValues) as T;
                 onSubmit(parsedPayload);
-
                 resetForm();
               } catch (e) {
                 console.log(e);
