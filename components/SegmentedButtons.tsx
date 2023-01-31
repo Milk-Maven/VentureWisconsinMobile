@@ -19,6 +19,7 @@ export const SegmentedButtons: React.FC<{
     }
     return (
       <TouchableOpacity
+        key={`${i}`}
         onPress={() => {
           setSelectedButton(i);
           button.onClick();

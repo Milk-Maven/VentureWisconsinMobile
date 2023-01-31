@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -7,31 +7,35 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 
 export interface FormGroupProps<T> {
-  listingToUpdate?: T;
+  formDefaultValue: T;
   formKeys: Array<keyof T>;
   formValidator: z.ZodObject<any>;
   onSubmit: any;
 }
 export const FormGroup = <T extends Object>({
-  listingToUpdate,
+  formDefaultValue,
   formKeys,
   formValidator,
   onSubmit,
 }: FormGroupProps<T>) => {
-  const resetForm = () => {
+  const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
+  const clear = () => {
     Object.keys(formState).forEach((key) => {
       formState[key].set("");
     });
   };
   useEffect(() => {
-    if (!listingToUpdate) {
-      resetForm();
+    if (!formDefaultValue) {
       return;
     }
-  }, [listingToUpdate]);
+    Object.keys(formState).forEach((key) => {
+      const defaultValue = (formDefaultValue as any)[key];
+      formState[key].set(defaultValue);
+    });
+  }, [formDefaultValue]);
 
   const formState = formKeys.reduce<{
     [key: string]: {
@@ -40,8 +44,10 @@ export const FormGroup = <T extends Object>({
     };
   }>((previous, current) => {
     const [get, set] = React.useState("");
-    current;
-    previous = { ...previous, [current]: { get, set } };
+    previous = {
+      ...previous,
+      [current]: { get, set },
+    };
     return previous;
   }, {});
 
@@ -52,9 +58,19 @@ export const FormGroup = <T extends Object>({
         {Object.keys(formState).map((input, i) => {
           return (
             <View key={i}>
-              <Text style={styles.inputText} key={`${i}text`}>
-                {input}
-              </Text>
+              <View
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexDirection: "row",
+                  paddingHorizontal: 12,
+                }}
+              >
+                <Text style={styles.inputText} key={`${i}text`}>
+                  {input}
+                </Text>
+                <Text style={{ color: "red" }}>{formErrors[input]}</Text>
+              </View>
               <TextInput
                 key={`${i}input`}
                 style={styles.input}
@@ -64,7 +80,6 @@ export const FormGroup = <T extends Object>({
             </View>
           );
         })}
-
         <View
           style={{
             display: "flex",
@@ -79,10 +94,10 @@ export const FormGroup = <T extends Object>({
               backgroundColor: "#FAF43D",
             }}
             onPress={async () => {
-              resetForm();
+              clear();
             }}
           >
-            <Text style={styles.buttonText}>reset</Text>
+            <Text style={styles.buttonText}>clear</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -98,16 +113,22 @@ export const FormGroup = <T extends Object>({
                 );
                 const parsedPayload = formValidator.parse(formValues) as T;
                 onSubmit(parsedPayload);
-                resetForm();
               } catch (e) {
-                console.log(e);
+                if (e instanceof ZodError) {
+                  const errors = e.errors.reduce((prev, curr) => {
+                    if (curr.path[0] === "phone") {
+                      console.log(curr);
+                    }
+                    return { ...prev, [curr.path[0]]: curr.message };
+                  }, {});
+                  setFormErrors(errors);
+                }
               }
             }}
           >
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
         </View>
-
         <View>
           <Text style={{ textAlign: "center" }}>listingID: {createdId} </Text>
         </View>
@@ -133,7 +154,7 @@ const styles = StyleSheet.create({
     paddingTop: 0,
   },
   inputText: {
-    paddingLeft: 13,
+    // paddingLeft: 13,
     paddingBottom: 0,
   },
   button: {

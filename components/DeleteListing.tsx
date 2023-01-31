@@ -1,20 +1,19 @@
 import React, { useEffect } from "react";
 import { Button, View } from "react-native";
 import { useRecoilState } from "recoil";
-// import { t } from "../providers/providers";
+import { t } from "../providers/providers";
 import { atomSearchedListing } from "../utils/recoil";
 import { SearchListing } from "./SearchListing";
 
 export const DeleteListing = () => {
+  const deleteListing = t.listingRemove.useMutation();
   const [selectedListing, setSelectedListing] =
     useRecoilState(atomSearchedListing);
   useEffect(() => {
     setSelectedListing({ id: 0, name: "" });
   }, []);
 
-  useEffect(() => {
-    console.log(selectedListing);
-  }, [selectedListing, setSelectedListing]);
+  useEffect(() => {}, [selectedListing, setSelectedListing]);
   return (
     <View>
       <SearchListing />
@@ -22,7 +21,8 @@ export const DeleteListing = () => {
         <Button
           title={`delete: ${selectedListing?.name}?`}
           onPress={() => {
-            // t.listingRemove.useMutation();
+            const response = deleteListing.mutate(selectedListing?.name);
+            console.log(response);
           }}
         />
       )}

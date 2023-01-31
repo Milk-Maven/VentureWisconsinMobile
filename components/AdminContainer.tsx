@@ -7,6 +7,22 @@ import { z } from "zod";
 import { t } from "../providers/providers";
 import { SegmentedButtons } from "./SegmentedButtons";
 
+export const formValidator = z.object({
+  // id: z.string().optional(),
+  address: z.string().min(1),
+  attributes: z.string().optional(),
+  category: z.string().optional(),
+  city: z.string().min(1),
+  description: z.string().min(1),
+  displayTitle: z.string().min(1),
+  email: z.string().email().min(1),
+  images: z.string().min(1),
+  name: z.string().min(1),
+  phone: z.string().min(10),
+  subTitle: z.string().optional(),
+  website: z.string().min(1),
+  zipcode: z.string().min(5),
+});
 export enum TableToModify {
   "listings" = "listings",
   "coupons" = "coupons",
@@ -75,7 +91,7 @@ export const AdminContainer = () => {
         <View>
           {action === Action.create && (
             <FormGroup
-              listingToUpdate={{} as any}
+              formDefaultValue={{} as any}
               formKeys={[
                 "address",
                 "attributes",
@@ -91,20 +107,7 @@ export const AdminContainer = () => {
                 "website",
                 "zipcode",
               ]}
-              formValidator={z.object({
-                name: z.string(),
-                address: z.string(),
-                category: z.string(),
-                description: z.string(),
-                email: z.string(),
-                phone: z.string(),
-                website: z.string(),
-                city: z.string(),
-                zipcode: z.string(),
-                displayTitle: z.string(),
-                attributes: z.string(),
-                images: z.string(),
-              })}
+              formValidator={formValidator}
               onSubmit={hook.mutate}
             />
           )}
