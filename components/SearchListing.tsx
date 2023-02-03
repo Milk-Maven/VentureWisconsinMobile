@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { t } from "../providers/providers";
 import { atomSearchedListing } from "../utils/recoil";
 export const SearchListing = () => {
-  const hook = t.listingGetAll.useQuery({ name: "" });
+  const getListings$ = t.listingGetAll.useQuery({ name: "" });
   const [selectedItem, setSelectedItem] =
     useRecoilState<any>(atomSearchedListing);
   useEffect(() => {}, []);
@@ -21,7 +21,7 @@ export const SearchListing = () => {
         onSelectItem={setSelectedItem}
         // @ts-ignore
         dataSet={
-          hook?.data?.map((listing) => {
+          getListings$?.data?.map((listing) => {
             return { ...listing, title: listing.name };
           }) || []
         }

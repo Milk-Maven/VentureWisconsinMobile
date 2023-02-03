@@ -5,7 +5,7 @@ import { BottomNavigation } from "../components/BottomNavigation";
 import { AdminContainer } from "../components/AdminContainer";
 export const AdminPage = ({ navigation }: any) => {
   return (
-    <View style={containerStyles.container}>
+    <View style={containerStyles.pageContainer}>
       {/* <AdminListing /> */}
       <AdminContainer />
     </View>

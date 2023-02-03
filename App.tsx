@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AdminPage } from "./pages/Admin";
@@ -37,15 +37,15 @@ export default function App() {
               <Stack.Screen
                 name={ROUTES.ADMIN_PAGE}
                 component={AdminPage}
-                options={{ title: "Admin" }}
+                options={{ title: "Admin", headerShown: false }}
               />
               <Stack.Screen
                 name={ROUTES.MAIN_PAGE}
                 component={MainPage}
-                options={{ title: "Main" }}
+                options={{ title: "Main", headerShown: false }}
               />
             </Stack.Navigator>
-            <BottomNavigation navigation={{}} />
+            <BottomNavigation />
           </NavigationContainer>
         </RecoilRoot>
       </QueryClientProvider>

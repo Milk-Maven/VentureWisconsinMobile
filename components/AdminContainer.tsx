@@ -47,19 +47,19 @@ export const AdminContainer = () => {
         buttons={[
           {
             text: TableToModify.listings,
-            onClick: () => {
+            onPress: () => {
               setFeature(TableToModify.listings);
             },
           },
           {
             text: TableToModify.coupons,
-            onClick: () => {
+            onPress: () => {
               setFeature(TableToModify.coupons);
             },
           },
           {
             text: TableToModify.users,
-            onClick: () => {
+            onPress: () => {
               setFeature(TableToModify.users);
             },
           },
@@ -69,19 +69,19 @@ export const AdminContainer = () => {
         buttons={[
           {
             text: Action.create,
-            onClick: () => {
+            onPress: () => {
               setAction(Action.create);
             },
           },
           {
             text: Action.update,
-            onClick: () => {
+            onPress: () => {
               setAction(Action.update);
             },
           },
           {
             text: Action.delete,
-            onClick: () => {
+            onPress: () => {
               setAction(Action.delete);
             },
           },

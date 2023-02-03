@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { StyleSheet } from "react-native";
 export interface SegmentedButton {
   text: string;
-  onClick: Function;
+  onPress: Function;
 }
 export const SegmentedButtons: React.FC<{
   buttons: SegmentedButton[];
@@ -22,7 +22,7 @@ export const SegmentedButtons: React.FC<{
         key={`${i}`}
         onPress={() => {
           setSelectedButton(i);
-          button.onClick();
+          button.onPress();
         }}
         style={{
           ...buttonStyles,
