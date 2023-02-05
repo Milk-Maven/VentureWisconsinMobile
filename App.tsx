@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { AdminPage } from "./pages/Admin";
+import { AdminPage } from "./pages/Admin/Admin";
 import { MainPage } from "./pages/Main";
 import { ROUTES } from "./utils/consts";
 import { RecoilRoot } from "recoil";

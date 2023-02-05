@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Listing } from "../../VentureWisconsinShared";
+import { DisplayListing } from "../pages/Listing/DisplayListing";
 import { t } from "../providers/providers";
-import { DisplayListing } from "./DisplayListing";
 const mockListing: Listing = {
   id: 0,
   images: `https://fastly.4sqi.net/img/general/600x600/7582041_YW-cY_0Lh04QKuHCHaH5nXOs50JFMGUc5GKBS_79TDY.jpg`,

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { FormGroup } from "./FormGroup";
-import { DeleteListing } from "./DeleteListing";
-import { UpdateListing } from "./UpdateListing";
+import { FormGroup } from "../../components/FormGroup";
+import { DeleteListing } from "../Listing/DeleteListing";
 import { z } from "zod";
-import { t } from "../providers/providers";
-import { SegmentedButtons } from "./SegmentedButtons";
+import { t } from "../../providers/providers";
+import { SegmentedButtons } from "../../components/SegmentedButtons";
+import { UpdateListing } from "../Listing/UpdateListing";
 
 export const formValidator = z.object({
   // id: z.string().optional(),

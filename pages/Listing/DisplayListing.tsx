@@ -1,4 +1,4 @@
-import { Listing } from "../../VentureWisconsinShared";
+import { Listing } from "../../../VentureWisconsinShared";
 import {
   Dimensions,
   Image,
@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACING } from "../utils/consts";
+import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACING } from "../..//utils/consts";
 
 export const DisplayListing: React.FC<{ listing: Listing }> = ({ listing }) => {
   const [imageHeight, setImageHeight] = useState(0);
@@ -126,8 +126,8 @@ const styles = StyleSheet.create({
   roundButton: {
     backgroundColor: COLORS.SECONDARY_RED,
     borderRadius: 100,
-    width: 95,
-    height: 95,
+    width: 90,
+    height: 90,
     display: "flex",
     justifyContent: "center",
   },

@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { View } from "react-native";
 import { useRecoilState } from "recoil";
 import { z } from "zod";
-import { Listing } from "../../VentureWisconsinShared";
-import { t } from "../providers/providers";
-import { atomSearchedListing } from "../utils/recoil";
-import { formValidator } from "./AdminContainer";
-import { FormGroup } from "./FormGroup";
+import { Listing } from "../../../VentureWisconsinShared";
+import { t } from "../../providers/providers";
+import { atomSearchedListing } from "../../utils/recoil";
+import { formValidator } from "../../pages/Admin/AdminContainer";
 import { SearchListing } from "./SearchListing";
+import { FormGroup } from "../../components/FormGroup";
 
 export const UpdateListing = () => {
   useEffect(() => {
