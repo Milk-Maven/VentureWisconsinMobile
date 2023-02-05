@@ -88,9 +88,6 @@ export const AdminContainer = () => {
           },
         ]}
       />
-
-      <Text>oy</Text>
-      <MaterialIcons name="credit-card" size={25} color={"blue"} />
       {table === TableToModify.listings && (
         <View>
           {action === Action.create && (

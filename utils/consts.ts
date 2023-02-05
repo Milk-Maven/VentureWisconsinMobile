@@ -13,8 +13,8 @@ export enum ROUTES {
 export const BASE_URL: Readonly<string> = "http://localhost:3000/";
 
 export enum SPACING {
-  LARGE = 40,
-  MEDIUM = 20,
+  LARGE = 50,
+  MEDIUM = 30,
   SMALL = 10,
 }
 
@@ -25,9 +25,11 @@ export enum FONT_WEIGHT {
 }
 
 export enum COLORS {
+  BLACK = "#545454",
   MAIN_YELLOW = "#fccf13",
   GREY = "#CFCFCE",
   SECONDARY_RED = "red",
+  WHITE = "#fff",
 }
 
 export enum FONT_SIZE {

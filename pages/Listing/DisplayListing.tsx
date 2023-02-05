@@ -5,47 +5,64 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import React, { useState } from "react";
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACING } from "../..//utils/consts";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 export const DisplayListing: React.FC<{ listing: Listing }> = ({ listing }) => {
   const [imageHeight, setImageHeight] = useState(0);
   const [imageWidth, setImageWidth] = useState(0);
   Image.getSize(listing.images, (width, height) => {
-    // calculate image width and height
     const screenWidth = Dimensions.get("window").width;
     const scaleFactor = width / screenWidth;
-    setImageHeight(height / scaleFactor - 30);
-    setImageWidth(Dimensions.get("window").width - 30);
+    setImageHeight(height / scaleFactor - 60);
+    setImageWidth(Dimensions.get("window").width - 60);
   });
   return (
     <>
       <ScrollView>
-        <Text
+        <View
           style={{
-            fontSize: FONT_SIZE.X_LARGE,
-            textAlign: "center",
-            padding: 5,
+            borderRadius: 15,
+            backgroundColor: COLORS.WHITE,
+            margin: 15,
+            marginTop: SPACING.MEDIUM,
           }}
         >
-          {listing.name}
-        </Text>
-        <Image
-          progressiveRenderingEnabled={true}
-          source={{
-            uri: listing.images,
-          }}
-          style={{
-            width: imageWidth,
-            height: imageHeight,
-            marginHorizontal: 15,
-            borderRadius: 15,
-          }}
-        />
+          <Text
+            style={{
+              fontSize: FONT_SIZE.X_LARGE,
+              textAlign: "center",
 
+              paddingVertical: 5,
+            }}
+          >
+            {listing.name}
+          </Text>
+          <Image
+            progressiveRenderingEnabled={true}
+            source={{
+              uri: listing.images,
+            }}
+            style={{
+              width: imageWidth,
+              height: imageHeight,
+              marginHorizontal: 15,
+              borderRadius: 15,
+            }}
+          />
+          <Text
+            style={{
+              fontSize: FONT_SIZE.X_LARGE,
+              color: COLORS.WHITE,
+              textAlign: "center",
+            }}
+          >
+            {listing.name}
+          </Text>
+        </View>
         <View style={styles.textBubble}>
           <Text style={styles.label}>Category</Text>
           <Text style={styles.value}>{listing.category}</Text>
@@ -71,54 +88,31 @@ export const DisplayListing: React.FC<{ listing: Listing }> = ({ listing }) => {
             justifyContent: "space-between",
             flexDirection: "row",
             padding: SPACING.SMALL,
+            marginBottom: SPACING.MEDIUM,
             paddingHorizontal: SPACING.MEDIUM,
           }}
         >
-          <RoundButton
-            text="DIRECTIONS"
-            onPress={() => {
-              console.log("clicked");
-            }}
-          ></RoundButton>
-          <RoundButton
-            text="ADD TO ITINERARY"
-            onPress={() => {
-              console.log("clicked");
-            }}
-          ></RoundButton>
-
-          <RoundButton
-            text="DEAL [COUPON]"
-            onPress={() => {
-              console.log("clicked");
-            }}
-          ></RoundButton>
+          <MaterialIcons
+            onPress={() => {}}
+            name="directions"
+            size={40}
+            color={COLORS.SECONDARY_RED}
+          />
+          <MaterialIcons
+            onPress={() => {}}
+            name="bookmark"
+            size={40}
+            color={COLORS.SECONDARY_RED}
+          />
+          <MaterialIcons
+            onPress={() => {}}
+            name="description"
+            size={40}
+            color={COLORS.SECONDARY_RED}
+          />
         </View>
       </ScrollView>
     </>
-  );
-};
-export const RoundButton: React.FC<{ text: string; onPress: Function }> = ({
-  text,
-  onPress,
-}) => {
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        onPress();
-      }}
-      style={styles.roundButton}
-    >
-      <Text
-        style={{
-          textAlign: "center",
-          fontWeight: FONT_WEIGHT.BOLD,
-          color: "white",
-        }}
-      >
-        {text}
-      </Text>
-    </TouchableOpacity>
   );
 };
 
@@ -130,10 +124,10 @@ const styles = StyleSheet.create({
     height: 90,
     display: "flex",
     justifyContent: "center",
+    alignContent: "center",
   },
   label: {
     paddingLeft: SPACING.SMALL,
-    paddingTop: SPACING.SMALL,
     fontWeight: FONT_WEIGHT.BOLD,
   },
   value: { paddingHorizontal: SPACING.SMALL },
@@ -143,5 +137,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 15,
     padding: 5,
+    paddingVertical: 10,
   },
 });
