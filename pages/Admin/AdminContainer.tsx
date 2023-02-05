@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { FormGroup } from "../../components/FormGroup";
 import { DeleteListing } from "../Listing/DeleteListing";
 import { z } from "zod";
 import { t } from "../../providers/providers";
 import { SegmentedButtons } from "../../components/SegmentedButtons";
 import { UpdateListing } from "../Listing/UpdateListing";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 export const formValidator = z.object({
   // id: z.string().optional(),
@@ -87,6 +88,9 @@ export const AdminContainer = () => {
           },
         ]}
       />
+
+      <Text>oy</Text>
+      <MaterialIcons name="credit-card" size={25} color={"blue"} />
       {table === TableToModify.listings && (
         <View>
           {action === Action.create && (
