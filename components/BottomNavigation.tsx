@@ -7,7 +7,6 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 export const BottomNavigation: React.FC = () => {
   const [selectedRoute, setSelectedRoute] = useState<ROUTES>();
   const navigation = useNavigation();
-
   return (
     <>
       <View style={styles.footer}>
