@@ -6,24 +6,8 @@ import { z } from "zod";
 import { t } from "../../providers/providers";
 import { SegmentedButtons } from "../../components/SegmentedButtons";
 import { UpdateListing } from "../Listing/UpdateListing";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { formValidator, globalStyles } from "../../utils/consts";
 
-export const formValidator = z.object({
-  // id: z.string().optional(),
-  address: z.string().min(1),
-  attributes: z.string().optional(),
-  category: z.string().optional(),
-  city: z.string().min(1),
-  description: z.string().min(1),
-  displayTitle: z.string().min(1),
-  email: z.string().email().min(1),
-  images: z.string().min(1),
-  name: z.string().min(1),
-  phone: z.string().min(10),
-  subTitle: z.string().optional(),
-  website: z.string().min(1),
-  zipcode: z.string().min(5),
-});
 export enum TableToModify {
   "listings" = "listings",
   "coupons" = "coupons",
@@ -34,7 +18,7 @@ export enum Action {
   "update" = "update",
   "delete" = "delete",
 }
-export const AdminContainer = () => {
+export const AdminPage = () => {
   const [action, setAction] = useState<"create" | "update" | "delete">(
     Action.create
   );
@@ -43,7 +27,7 @@ export const AdminContainer = () => {
 
   useEffect(() => {}, []);
   return (
-    <View>
+    <View style={globalStyles.pageContainer}>
       <SegmentedButtons
         buttons={[
           {

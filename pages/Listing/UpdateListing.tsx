@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { View } from "react-native";
 import { useRecoilState } from "recoil";
-import { z } from "zod";
 import { Listing } from "../../../VentureWisconsinShared";
 import { t } from "../../providers/providers";
 import { atomSearchedListing } from "../../utils/recoil";
-import { formValidator } from "../../pages/Admin/AdminContainer";
 import { SearchListing } from "./SearchListing";
 import { FormGroup } from "../../components/FormGroup";
+import { formValidator } from "../../utils/consts";
 
 export const UpdateListing = () => {
   useEffect(() => {

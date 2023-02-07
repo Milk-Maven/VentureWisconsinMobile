@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import { COLORS, ROUTES } from "../utils/consts";
-import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { useNavigation } from "@react-navigation/native";
 
-export const BottomNavigation: React.FC = () => {
+export const BottomNavigation = () => {
   const [selectedRoute, setSelectedRoute] = useState<ROUTES>();
   const navigation = useNavigation();
+  useEffect(() => {
+    navigation.addListener("state", (s) => {
+      if (s?.data?.state?.routes[s?.data?.state.routes.length - 1]) {
+        setSelectedRoute(
+          s?.data?.state.routes[s?.data?.state.routes.length - 1].name
+        );
+      }
+    });
+  }, []);
   return (
     <>
       <View style={styles.footer}>
@@ -14,16 +23,14 @@ export const BottomNavigation: React.FC = () => {
           onPress={() => {
             // @ts-ignore
             navigation.navigate(ROUTES.ADMIN_PAGE);
-            setSelectedRoute(ROUTES.ADMIN_PAGE);
           }}
           name="admin-panel-settings"
           size={40}
-          color={COLORS.SECONDARY_RED}
           style={{
             ...styles.icon,
             color:
               selectedRoute === ROUTES.ADMIN_PAGE
-                ? COLORS.SECONDARY_RED
+                ? COLORS.MAIN_YELLOW
                 : COLORS.WHITE,
           }}
         />
@@ -31,17 +38,31 @@ export const BottomNavigation: React.FC = () => {
         <MaterialIcons
           onPress={() => {
             // @ts-ignore
-            navigation?.navigate(ROUTES.MAIN_PAGE, {});
-            setSelectedRoute(ROUTES.MAIN_PAGE);
+            navigation?.navigate(ROUTES.LISTING_PAGE, {});
           }}
           name="explore"
           size={40}
-          color={COLORS.SECONDARY_RED}
           style={{
             ...styles.icon,
             color:
-              selectedRoute === ROUTES.MAIN_PAGE
-                ? COLORS.SECONDARY_RED
+              selectedRoute === ROUTES.LISTING_PAGE
+                ? COLORS.MAIN_YELLOW
+                : COLORS.WHITE,
+          }}
+        />
+
+        <MaterialIcons
+          onPress={() => {
+            // @ts-ignore
+            navigation?.navigate(ROUTES.USER_PAGE, {});
+          }}
+          name="person"
+          size={40}
+          style={{
+            ...styles.icon,
+            color:
+              selectedRoute === ROUTES.USER_PAGE
+                ? COLORS.MAIN_YELLOW
                 : COLORS.WHITE,
           }}
         />
