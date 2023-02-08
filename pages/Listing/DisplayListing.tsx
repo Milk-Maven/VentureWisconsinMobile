@@ -15,6 +15,7 @@ import {
   globalStyles,
   SPACING,
 } from "../..//utils/consts";
+import { Pill } from "../../components/Pill";
 export const DisplayListing: React.FC<{
   listing: Listing;
 }> = ({ listing }) => {
@@ -60,20 +61,19 @@ export const DisplayListing: React.FC<{
           </Text>
         </View>
         <View style={globalStyles.textBubble}>
-          <Text style={styles.label}>Category</Text>
+          <Text style={{ ...styles.label, paddingTop: 5 }}>Category</Text>
           <Text style={styles.value}>{listing.category}</Text>
-        </View>
-        <View style={globalStyles.textBubble}>
+
           <Text style={styles.label}>Description</Text>
           <Text style={styles.value}>{listing.description}</Text>
-        </View>
-        <View style={globalStyles.textBubble}>
+
           <Text style={styles.label}>Address</Text>
           <Text style={styles.value}>{listing.address}</Text>
-        </View>
-        <View style={{ ...globalStyles.textBubble, marginBottom: 20 }}>
+
           <Text style={styles.label}>Attributes</Text>
-          <Text style={styles.value}>{listing.attributes}</Text>
+          <View style={{ paddingLeft: SPACING.SMALL }}>
+            <Pill text={listing.attributes}></Pill>
+          </View>
         </View>
       </ScrollView>
     </>
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
   },
   label: {
     paddingLeft: SPACING.SMALL,
+    paddingTop: SPACING.SMALL,
     fontWeight: FONT_WEIGHT.BOLD,
   },
   value: { paddingHorizontal: SPACING.SMALL },

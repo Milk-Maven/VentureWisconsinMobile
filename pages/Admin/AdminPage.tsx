@@ -28,91 +28,84 @@ export const AdminPage = () => {
   useEffect(() => {}, []);
   return (
     <View style={globalStyles.pageContainer}>
-      <SegmentedButtons
-        buttons={[
-          {
-            text: TableToModify.listings,
-            onPress: () => {
-              setFeature(TableToModify.listings);
+      <View style={globalStyles.textBubble}>
+        <Text style={globalStyles.textBubbleHeader}>Admin Panel</Text>
+        <SegmentedButtons
+          buttons={[
+            {
+              text: TableToModify.listings,
+              onPress: () => {
+                setFeature(TableToModify.listings);
+              },
             },
-          },
-          {
-            text: TableToModify.coupons,
-            onPress: () => {
-              setFeature(TableToModify.coupons);
+            {
+              text: TableToModify.coupons,
+              onPress: () => {
+                setFeature(TableToModify.coupons);
+              },
             },
-          },
-          {
-            text: TableToModify.users,
-            onPress: () => {
-              setFeature(TableToModify.users);
+            {
+              text: TableToModify.users,
+              onPress: () => {
+                setFeature(TableToModify.users);
+              },
             },
-          },
-        ]}
-      />
-      <SegmentedButtons
-        buttons={[
-          {
-            text: Action.create,
-            onPress: () => {
-              setAction(Action.create);
+          ]}
+        />
+        <SegmentedButtons
+          buttons={[
+            {
+              text: Action.create,
+              onPress: () => {
+                setAction(Action.create);
+              },
             },
-          },
-          {
-            text: Action.update,
-            onPress: () => {
-              setAction(Action.update);
+            {
+              text: Action.update,
+              onPress: () => {
+                setAction(Action.update);
+              },
             },
-          },
-          {
-            text: Action.delete,
-            onPress: () => {
-              setAction(Action.delete);
+            {
+              text: Action.delete,
+              onPress: () => {
+                setAction(Action.delete);
+              },
             },
-          },
-        ]}
-      />
-      {table === TableToModify.listings && (
-        <View>
-          {action === Action.create && (
-            <FormGroup
-              formDefaultValue={{} as any}
-              formKeys={[
-                "address",
-                "attributes",
-                "category",
-                "city",
-                "description",
-                "displayTitle",
-                "email",
-                "images",
-                "name",
-                "phone",
-                "subTitle",
-                "website",
-                "zipcode",
-              ]}
-              formValidator={formValidator}
-              onSubmit={hook.mutate}
-            />
-          )}
-          {action === Action.update && <UpdateListing />}
-          {action === Action.delete && <DeleteListing />}
-        </View>
-      )}
-      {table === TableToModify.coupons && <View></View>}
-      {table === TableToModify.users && <View></View>}
+          ]}
+        />
+        {table === TableToModify.listings && (
+          <View>
+            {action === Action.create && (
+              <FormGroup
+                formDefaultValue={{} as any}
+                formKeys={[
+                  "address",
+                  "attributes",
+                  "category",
+                  "city",
+                  "description",
+                  "displayTitle",
+                  "email",
+                  "images",
+                  "name",
+                  "phone",
+                  "subTitle",
+                  "website",
+                  "zipcode",
+                ]}
+                formValidator={formValidator}
+                onSubmit={hook.mutate}
+              />
+            )}
+            {action === Action.update && <UpdateListing />}
+            {action === Action.delete && <DeleteListing />}
+          </View>
+        )}
+
+        {table === TableToModify.coupons && <View></View>}
+        {table === TableToModify.users && <View></View>}
+      </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    display: "flex",
-    alignContent: "center",
-  },
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-});

@@ -73,7 +73,7 @@ export const mockListing: Listing[] = [
   {
     id: 0,
     images: `https://fastly.4sqi.net/img/general/600x600/7582041_YW-cY_0Lh04QKuHCHaH5nXOs50JFMGUc5GKBS_79TDY.jpg`,
-    attributes: "cozy blue collar college",
+    attributes: "cozy",
     city: "Hales Corners",
     displayTitle: "Bar 430",
     subTitle: "1 dollar beers",

@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     display: "flex",
-    paddingBottom: 350,
+    paddingBottom: 280,
     paddingTop: 5,
     paddingHorizontal: 5,
     justifyContent: "center",
