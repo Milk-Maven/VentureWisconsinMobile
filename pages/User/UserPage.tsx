@@ -1,11 +1,11 @@
 import React from "react";
 import { View } from "react-native";
 import { globalStyles } from "../../utils/consts";
-import { UserBookmarks } from "./UserBookmarks";
+import { UserPins } from "./UserPins";
 export const UserPage = () => {
   return (
     <View style={globalStyles.pageContainer}>
-      <UserBookmarks></UserBookmarks>
+      <UserPins></UserPins>
     </View>
   );
 };

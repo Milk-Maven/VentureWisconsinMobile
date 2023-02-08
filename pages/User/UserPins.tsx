@@ -13,14 +13,14 @@ import {
   COLORS,
 } from "../../utils/consts"; // get all listings that a user has bookmarked
 
-export const UserBookmarks = () => {
+export const UserPins = () => {
   const navigation = useNavigation();
-  const bookmarks = mockListing.map((listing, i) => {
+  const pins = mockListing.map((listing, i) => {
     return (
       <Pressable
         key={i}
         style={{
-          padding: 20,
+          padding: SPACING.SMALL,
           flexDirection: "row",
           backgroundColor: COLORS.WHITE,
           borderTopWidth: 1,
@@ -72,9 +72,9 @@ export const UserBookmarks = () => {
   return (
     <ScrollView>
       <View>
-        <Text style={globalStyles.textBubbleHeader}>Bookmarks</Text>
+        <Text style={globalStyles.textBubbleHeader}>Pins</Text>
       </View>
-      {bookmarks}
+      {pins}
     </ScrollView>
   );
 };
