@@ -1,15 +1,16 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { ImagePreview } from "../../components/ImagePreview";
 import {
-  COLORS,
   FONT_SIZE,
   FONT_WEIGHT,
   globalStyles,
   mockListing,
   SPACING,
   ROUTES,
+  COLORS,
 } from "../../utils/consts"; // get all listings that a user has bookmarked
 
 export const UserBookmarks = () => {
@@ -19,8 +20,11 @@ export const UserBookmarks = () => {
       <Pressable
         key={i}
         style={{
-          ...globalStyles.textBubble,
           padding: 20,
+          flexDirection: "row",
+          backgroundColor: COLORS.WHITE,
+          borderTopWidth: 1,
+          borderColor: COLORS.GREY,
         }}
         onPress={() => {
           // @ts-ignore
@@ -28,30 +32,46 @@ export const UserBookmarks = () => {
         }}
       >
         <ImagePreview imageURL={listing.images} />
-        {/* <View style={{ flex: 1, flexGrow: 1, width: 0 }}> */}
-        <Text
+        <View
           style={{
-            fontSize: FONT_SIZE.MEDIUM,
-            fontWeight: FONT_WEIGHT.BOLD,
-            paddingTop: 10,
+            display: "flex",
+            alignContent: "center",
+            justifyContent: "center",
           }}
         >
-          {listing.displayTitle}
-        </Text>
-        <Text style={{ paddingTop: 5, flexWrap: "wrap", flexShrink: 1 }}>
-          Address {listing.address}
-        </Text>
-        <Text style={{ paddingTop: 5 }}>
-          Coupon {Math.random() > 0.5 ? "available" : "used"}
-        </Text>
-        <Text style={{ paddingVertical: 5 }}>Phone {listing.phone}</Text>
-        {/* </View> */}
+          <Text
+            style={{
+              fontSize: FONT_SIZE.MEDIUM,
+              fontWeight: FONT_WEIGHT.BOLD,
+            }}
+          >
+            {listing.displayTitle}
+          </Text>
+          <Text>Coupon {Math.random() > 0.5 ? "available" : "used"}</Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            flex: 1,
+          }}
+        >
+          <MaterialIcons
+            onPress={() => {
+              // call api to remove from users bookmarks
+            }}
+            name="clear"
+            size={30}
+            style={{ color: COLORS.BLACK }}
+          />
+        </View>
       </Pressable>
     );
   });
   return (
     <ScrollView>
-      <View style={{ ...globalStyles.textBubble }}>
+      <View>
         <Text style={globalStyles.textBubbleHeader}>Bookmarks</Text>
       </View>
       {bookmarks}
@@ -63,7 +83,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    // borderColor: COLORS.GREY,
     color: "black",
     paddingRight: SPACING.SMALL,
     borderTopWidth: 1,

@@ -3,7 +3,7 @@ import { Image, View } from "react-native";
 
 export const ImagePreview: React.FC<{ imageURL: string; size?: number }> = ({
   imageURL,
-  size = 70,
+  size = 50,
 }) => {
   return (
     <Image

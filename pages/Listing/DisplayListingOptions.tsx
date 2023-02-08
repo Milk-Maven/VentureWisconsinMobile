@@ -42,7 +42,7 @@ export const DisplayListingOptions: React.FC<{
           name="directions"
           size={25}
           style={{ textAlign: "center" }}
-          color={COLORS.BLACK}
+          color={COLORS.SECONDARY_RED}
         />
         <Text style={{ textAlign: "center" }}>directions</Text>
       </Pressable>
@@ -52,7 +52,7 @@ export const DisplayListingOptions: React.FC<{
           name="star-border"
           // star
           size={25}
-          color={COLORS.BLACK}
+          color={COLORS.SECONDARY_RED}
         />
         <Text style={{ textAlign: "center" }}>bookmark</Text>
       </Pressable>
@@ -65,7 +65,7 @@ export const DisplayListingOptions: React.FC<{
             borderColor: COLORS.GREY,
           }}
           size={25}
-          color={COLORS.BLACK}
+          color={COLORS.SECONDARY_RED}
         />
         <Text style={{ textAlign: "center" }}>coupon</Text>
       </Pressable>
