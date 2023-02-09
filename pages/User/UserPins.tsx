@@ -72,7 +72,7 @@ export const UserPins = () => {
   return (
     <ScrollView>
       <View>
-        <Text style={globalStyles.textBubbleHeader}>Pins</Text>
+        <Text style={globalStyles.textBubbleHeader}>Pinned Activities</Text>
       </View>
       {pins}
     </ScrollView>

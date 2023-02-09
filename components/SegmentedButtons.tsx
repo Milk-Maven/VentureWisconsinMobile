@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { StyleSheet } from "react-native";
-import { COLORS, globalStyles } from "../utils/consts";
+import { COLORS, FONT_WEIGHT } from "../utils/consts";
 export interface SegmentedButton {
   text: string;
   onPress: Function;
@@ -31,7 +31,14 @@ export const SegmentedButtons: React.FC<{
             i === selectedButton ? COLORS.SECONDARY_RED : "#bababa",
         }}
       >
-        <Text style={styles.text}>{button.text}</Text>
+        <Text
+          style={{
+            ...styles.text,
+            color: i === selectedButton ? COLORS.WHITE : COLORS.BLACK,
+          }}
+        >
+          {button.text}
+        </Text>
       </TouchableOpacity>
     );
   });
@@ -61,6 +68,8 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: "center",
+    fontWeight: FONT_WEIGHT.X_BOLD,
+    color: COLORS.WHITE,
   },
   firstSegmentedButton: {
     borderTopLeftRadius: 15,

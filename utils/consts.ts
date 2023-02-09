@@ -25,6 +25,7 @@ export enum FONT_WEIGHT {
   THIN = "200",
   MEDIUM = "400",
   BOLD = "600",
+  X_BOLD = "800",
 }
 
 export enum COLORS {

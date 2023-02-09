@@ -35,6 +35,7 @@ export const DisplayListingOptions: React.FC<{
       <Pressable
         style={{
           flex: 2,
+          borderLeftWidth: 1,
         }}
         onPress={() => {}}
       >
@@ -46,23 +47,22 @@ export const DisplayListingOptions: React.FC<{
         />
         <Text style={{ textAlign: "center" }}>directions</Text>
       </Pressable>
-      <Pressable style={{ flex: 2 }} onPress={() => {}}>
+      <Pressable style={{ flex: 2, borderLeftWidth: 1 }} onPress={() => {}}>
         <MaterialIcons
           style={{ textAlign: "center" }}
-          name="star-border"
-          // star
+          name="push-pin"
           size={25}
           color={COLORS.SECONDARY_RED}
         />
-        <Text style={{ textAlign: "center" }}>bookmark</Text>
+        <Text style={{ textAlign: "center" }}>Pin it</Text>
       </Pressable>
-      <Pressable style={{ flex: 2 }} onPress={() => {}}>
+      <Pressable style={{ flex: 2, borderLeftWidth: 1 }} onPress={() => {}}>
         <MaterialIcons
           name="description"
           style={{
             textAlign: "center",
-            borderLeftWidth: 1,
             borderColor: COLORS.GREY,
+            // bro,
           }}
           size={25}
           color={COLORS.SECONDARY_RED}
@@ -70,7 +70,7 @@ export const DisplayListingOptions: React.FC<{
         <Text style={{ textAlign: "center" }}>coupon</Text>
       </Pressable>
       <Pressable
-        style={{ flex: 1 }}
+        style={{ flex: 1, borderLeftWidth: 1 }}
         onPress={() => {
           onNext();
         }}

@@ -55,9 +55,10 @@ export const DisplayListing: React.FC<{
               textAlign: "center",
               paddingVertical: 10,
               color: COLORS.BLACK,
+              fontWeight: FONT_WEIGHT.X_BOLD,
             }}
           >
-            {listing.subTitle}
+            {listing.city}
           </Text>
         </View>
         <View style={globalStyles.textBubble}>
@@ -71,7 +72,12 @@ export const DisplayListing: React.FC<{
           <Text style={styles.value}>{listing.address}</Text>
 
           <Text style={styles.label}>Attributes</Text>
-          <View style={{ paddingLeft: SPACING.SMALL }}>
+          <View
+            style={{
+              paddingLeft: SPACING.SMALL,
+              paddingVertical: SPACING.SMALL,
+            }}
+          >
             <Pill text={listing.attributes}></Pill>
           </View>
         </View>

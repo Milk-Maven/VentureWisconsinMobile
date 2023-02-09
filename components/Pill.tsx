@@ -20,7 +20,7 @@ export const Pill: React.FC<{ text: string | null }> = ({ text }) => {
     >
       <Text
         style={{
-          fontWeight: FONT_WEIGHT.BOLD,
+          fontWeight: FONT_WEIGHT.X_BOLD,
           color: COLORS.BLACK,
         }}
       >
