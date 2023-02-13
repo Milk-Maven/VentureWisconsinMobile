@@ -6,12 +6,29 @@ import { COLORS } from "../../utils/consts";
 export const ImageDisplay: React.FC<{ images: (string | null)[] }> = ({
   images,
 }) => {
-  const [imageWidth, setImageWidth] = useState(0);
+  const [imageWidth, setImageWidth] = useState(
+    Dimensions.get("window").width - 100
+  );
   const [selectedImage, setSelectedImage] = useState(0);
   const [displayImages, setDisplayImages] = useState<any[]>([]);
-
   useEffect(() => {
-    setImageWidth(Dimensions.get("window").width - 100);
+    setDisplayImages([
+      <Image
+        progressiveRenderingEnabled={true}
+        defaultSource={require("./missing-image.jpeg")}
+        style={{
+          borderRadius: 15,
+          width: imageWidth,
+        }}
+        source={{
+          width: imageWidth,
+          height: imageWidth,
+          uri: require("./missing-image.jpeg"),
+        }}
+      />,
+    ]);
+  }, [images]);
+  useEffect(() => {
     const imagesToDisplay = images
       .filter((image) => image !== null)
       .map((image) => {
@@ -19,7 +36,10 @@ export const ImageDisplay: React.FC<{ images: (string | null)[] }> = ({
           <Image
             progressiveRenderingEnabled={true}
             defaultSource={require("./missing-image.jpeg")}
-            style={{ borderRadius: 15 }}
+            style={{
+              borderRadius: 15,
+              width: imageWidth,
+            }}
             source={{
               width: imageWidth,
               height: imageWidth,
@@ -28,8 +48,8 @@ export const ImageDisplay: React.FC<{ images: (string | null)[] }> = ({
           />
         );
       });
-    setDisplayImages(imagesToDisplay);
-  }, []);
+    setDisplayImages([...imagesToDisplay]);
+  }, [images]);
   return (
     <View
       style={{
@@ -40,7 +60,6 @@ export const ImageDisplay: React.FC<{ images: (string | null)[] }> = ({
       }}
     >
       <Pressable
-        style={{}}
         onPress={() => {
           const nextImage = selectedImage - 1;
           nextImage === -1
@@ -55,10 +74,9 @@ export const ImageDisplay: React.FC<{ images: (string | null)[] }> = ({
           color={COLORS.SECONDARY_RED}
         />
       </Pressable>
-      {displayImages[selectedImage]}
+      {displayImages[selectedImage] || []}
       <Pressable
         onPress={() => {
-          console.log(selectedImage);
           const nextImage = selectedImage + 1;
           nextImage === displayImages.length
             ? setSelectedImage(0)

@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { z, ZodError } from "zod";
+import { COLORS, FONT_WEIGHT } from "../utils/consts";
 
 export interface FormGroupProps<T> {
   formDefaultValue: T;
@@ -91,7 +92,6 @@ export const FormGroup = <T extends Object>({
           <TouchableOpacity
             style={{
               ...styles.button,
-              backgroundColor: "#FAF43D",
             }}
             onPress={async () => {
               clear();
@@ -158,20 +158,21 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   button: {
-    backgroundColor: "#FAF43D",
+    backgroundColor: COLORS.SECONDARY_RED,
     borderWidth: 1,
     borderColor: "#4a4a4a",
     borderRadius: 5,
     width: 80,
     height: 30,
-    color: "#4a4a4a",
+    color: COLORS.WHITE,
     display: "flex",
     justifyContent: "center",
     marginHorizontal: "auto",
   },
   buttonText: {
     textAlign: "center",
-    color: "#4a4a4a",
+    color: COLORS.WHITE,
+    fontWeight: FONT_WEIGHT.X_BOLD,
   },
   container: {
     width: "100%",

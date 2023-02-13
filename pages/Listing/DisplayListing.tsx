@@ -1,12 +1,5 @@
 import { Listing } from "../../../VentureWisconsinShared";
-import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import {
   COLORS,
@@ -27,7 +20,6 @@ export const DisplayListing: React.FC<{
           <Text style={globalStyles.textBubbleHeader}>
             {listing.displayTitle}
           </Text>
-
           <ImageDisplay
             images={[
               listing.image1,
@@ -36,30 +28,25 @@ export const DisplayListing: React.FC<{
               listing.image4,
             ]}
           ></ImageDisplay>
-          {listing.image2 && (
-            <Text
-              style={{
-                fontSize: FONT_SIZE.MEDIUM,
-                textAlign: "center",
-                paddingVertical: 10,
-                color: COLORS.BLACK,
-                fontWeight: FONT_WEIGHT.X_BOLD,
-              }}
-            >
-              {listing.city}
-            </Text>
-          )}
+          <Text
+            style={{
+              fontSize: FONT_SIZE.MEDIUM,
+              textAlign: "center",
+              paddingVertical: 10,
+              color: COLORS.BLACK,
+              fontWeight: FONT_WEIGHT.X_BOLD,
+            }}
+          >
+            {listing.city}
+          </Text>
         </View>
         <View style={globalStyles.textBubble}>
           <Text style={{ ...styles.label, paddingTop: 5 }}>Category</Text>
           <Text style={styles.value}>{listing.category}</Text>
-
           <Text style={styles.label}>Description</Text>
           <Text style={styles.value}>{listing.description}</Text>
-
           <Text style={styles.label}>Address</Text>
           <Text style={styles.value}>{listing.address}</Text>
-
           <Text style={styles.label}>Attributes</Text>
           <View
             style={{

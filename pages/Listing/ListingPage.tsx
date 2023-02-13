@@ -5,18 +5,24 @@ import { t } from "../../providers/providers";
 import { DisplayListingOptions } from "./DisplayListingOptions";
 import { globalStyles, mockListing } from "../../utils/consts";
 import { Text, View } from "react-native";
-
 // @ts-ignore
 export const ListingPage = ({ route }) => {
   const getListings$ = t.listingGetAll.useQuery({ name: "" });
   const [selectedListing, setListing] = useState<Listing | null>(null);
+  // useEffect(() => {
+  //   const defaultListing =
+  //     route?.params?.defaultListing || getListings$?.data?.[0];
+  //   if (defaultListing) {
+  //     setListing(defaultListing);
+  //   }
+  // }, []);
   useEffect(() => {
     const defaultListing =
       route?.params?.defaultListing || getListings$?.data?.[0];
     if (defaultListing) {
       setListing(defaultListing);
     }
-  }, []);
+  }, [getListings$.data]);
   return (
     <View style={globalStyles.pageContainer}>
       {selectedListing && (
