@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import {
   COLORS,
   FONT_SIZE,
@@ -16,19 +16,10 @@ import {
   SPACING,
 } from "../..//utils/consts";
 import { Pill } from "../../components/Pill";
+import { ImageDisplay } from "./ImageDisplay";
 export const DisplayListing: React.FC<{
   listing: Listing;
 }> = ({ listing }) => {
-  const [imageHeight, setImageHeight] = useState(0);
-  const [imageWidth, setImageWidth] = useState(0);
-  if (listing.images) {
-    Image.getSize(listing.images, (width, height) => {
-      const screenWidth = Dimensions.get("window").width;
-      const scaleFactor = width / screenWidth;
-      setImageHeight(height / scaleFactor - 60);
-      setImageWidth(Dimensions.get("window").width - 60);
-    });
-  }
   return (
     <>
       <ScrollView>
@@ -36,30 +27,28 @@ export const DisplayListing: React.FC<{
           <Text style={globalStyles.textBubbleHeader}>
             {listing.displayTitle}
           </Text>
-          {listing.images && (
-            <Image
-              progressiveRenderingEnabled={true}
-              source={{
-                uri: listing.images,
-              }}
+
+          <ImageDisplay
+            images={[
+              listing.image1,
+              listing.image2,
+              listing.image3,
+              listing.image4,
+            ]}
+          ></ImageDisplay>
+          {listing.image2 && (
+            <Text
               style={{
-                width: imageWidth,
-                height: imageHeight,
-                marginHorizontal: 15,
+                fontSize: FONT_SIZE.MEDIUM,
+                textAlign: "center",
+                paddingVertical: 10,
+                color: COLORS.BLACK,
+                fontWeight: FONT_WEIGHT.X_BOLD,
               }}
-            />
+            >
+              {listing.city}
+            </Text>
           )}
-          <Text
-            style={{
-              fontSize: FONT_SIZE.MEDIUM,
-              textAlign: "center",
-              paddingVertical: 10,
-              color: COLORS.BLACK,
-              fontWeight: FONT_WEIGHT.X_BOLD,
-            }}
-          >
-            {listing.city}
-          </Text>
         </View>
         <View style={globalStyles.textBubble}>
           <Text style={{ ...styles.label, paddingTop: 5 }}>Category</Text>

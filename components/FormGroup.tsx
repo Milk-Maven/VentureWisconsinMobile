@@ -105,6 +105,7 @@ export const FormGroup = <T extends Object>({
             }}
             onPress={async () => {
               try {
+                console.log("in");
                 const formValues = Object.keys(formState).reduce(
                   (prev, curr) => {
                     return { ...prev, [curr]: formState[curr].get };
@@ -112,13 +113,12 @@ export const FormGroup = <T extends Object>({
                   {}
                 );
                 const parsedPayload = formValidator.parse(formValues) as T;
+                console.log(parsedPayload);
                 onSubmit(parsedPayload);
               } catch (e) {
+                console.log(e);
                 if (e instanceof ZodError) {
                   const errors = e.errors.reduce((prev, curr) => {
-                    if (curr.path[0] === "phone") {
-                      console.log(curr);
-                    }
                     return { ...prev, [curr.path[0]]: curr.message };
                   }, {});
                   setFormErrors(errors);
@@ -182,4 +182,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
   },
+});
+
+export const listingSchema = z.object({
+  address: z.string().min(1),
+  attributes: z.string().optional(),
+  category: z.string().optional(),
+  city: z.string().min(1),
+  description: z.string().min(1),
+  displayTitle: z.string().min(1),
+  email: z.string().email().min(1),
+  image1: z.string().min(1),
+  image2: z.string().min(1).optional().nullable(),
+  image3: z.string().min(1).optional().nullable(),
+  image4: z.string().min(1).optional().nullable(),
+  name: z.string().min(1),
+  phone: z.string().min(10),
+  subTitle: z.string().optional(),
+  website: z.string().min(1),
+  zipcode: z.string().min(5),
 });

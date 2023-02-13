@@ -45,9 +45,7 @@ export enum FONT_SIZE {
 
 export const globalStyles = StyleSheet.create({
   pageContainer: {
-    // backgroundColor: "#e8e8e8",
     flex: 1,
-    // borderRadius: 20,
     marginTop: 50,
   },
 
@@ -73,11 +71,17 @@ export const globalStyles = StyleSheet.create({
 export const mockListing: Listing[] = [
   {
     id: 0,
-    images: `https://fastly.4sqi.net/img/general/600x600/7582041_YW-cY_0Lh04QKuHCHaH5nXOs50JFMGUc5GKBS_79TDY.jpg`,
+    image1:
+      "https://images.squarespace-cdn.com/content/v1/581d212246c3c40f060ce1ec/1478310323329-AEKV1H8T44UB8LU5YPMC/IMG_5033.jpg",
+    image2:
+      "https://images.squarespace-cdn.com/content/v1/581d212246c3c40f060ce1ec/1478318946664-18H4CDL98HA2JOK7SEDU/IMG_5010.jpg",
+    image3:
+      "https://images.squarespace-cdn.com/content/v1/581d212246c3c40f060ce1ec/1478313684290-QI8D44040Z5M04SM352X/13697019_894095867362167_160257876984087406_n-2.png",
+    image4: null,
     attributes: "cozy",
-    city: "Hales Corners",
+    city: "Oshkosh",
     displayTitle: "Bar 430",
-    subTitle: "1 dollar beers",
+    subTitle: "Fancy bar place",
     address: "430 N Main St, Oshkosh, WI 54901",
     name: "Bar 430",
     email: "bar430@oshkosh.com",
@@ -90,8 +94,11 @@ export const mockListing: Listing[] = [
   },
   {
     id: 1,
-    images:
+    image1:
       "https://lh3.googleusercontent.com/p/AF1QipO1NgOQV1FZIuSksxG20y4hzNxISHQW34onekQU=s1360-w1360-h1020",
+    image2: null,
+    image3: null,
+    image4: null,
     attributes: "college",
     city: "Oshkosh",
     displayTitle: "Mollys",
@@ -108,8 +115,11 @@ export const mockListing: Listing[] = [
   },
   {
     id: 2,
-    images:
+    image1:
       "https://s3-media0.fl.yelpcdn.com/bphoto/BpbRI-DJDoNJvRh8Gp52ug/348s.jpg",
+    image2: null,
+    image3: null,
+    image4: null,
     attributes: "college",
     city: "Oshkosh",
     displayTitle: "D PUB",
@@ -125,20 +135,3 @@ export const mockListing: Listing[] = [
       "Located in historic downtown Oshkosh. Quaint, laid back pub, full-service restaurant and amazing mugs of imported beer.",
   },
 ];
-
-export const formValidator = z.object({
-  // id: z.string().optional(),
-  address: z.string().min(1),
-  attributes: z.string().optional(),
-  category: z.string().optional(),
-  city: z.string().min(1),
-  description: z.string().min(1),
-  displayTitle: z.string().min(1),
-  email: z.string().email().min(1),
-  images: z.string().min(1),
-  name: z.string().min(1),
-  phone: z.string().min(10),
-  subTitle: z.string().optional(),
-  website: z.string().min(1),
-  zipcode: z.string().min(5),
-});

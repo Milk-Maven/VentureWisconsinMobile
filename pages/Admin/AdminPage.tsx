@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { FormGroup } from "../../components/FormGroup";
+import { FormGroup, listingSchema } from "../../components/FormGroup";
 import { DeleteListing } from "../Listing/DeleteListing";
 import { z } from "zod";
 import { t } from "../../providers/providers";
 import { SegmentedButtons } from "../../components/SegmentedButtons";
 import { UpdateListing } from "../Listing/UpdateListing";
-import { formValidator, globalStyles } from "../../utils/consts";
+import { globalStyles, mockListing } from "../../utils/consts";
+import { Listing } from "../../../VentureWisconsinShared";
 
 export enum TableToModify {
   "listings" = "listings",
@@ -78,7 +79,7 @@ export const AdminPage = () => {
           <View>
             {action === Action.create && (
               <FormGroup
-                formDefaultValue={{} as any}
+                formDefaultValue={mockListing[0]}
                 formKeys={[
                   "address",
                   "attributes",
@@ -87,14 +88,17 @@ export const AdminPage = () => {
                   "description",
                   "displayTitle",
                   "email",
-                  "images",
                   "name",
                   "phone",
                   "subTitle",
                   "website",
                   "zipcode",
+                  "image1",
+                  "image2",
+                  "image3",
+                  "image4",
                 ]}
-                formValidator={formValidator}
+                formValidator={listingSchema}
                 onSubmit={hook.mutate}
               />
             )}
