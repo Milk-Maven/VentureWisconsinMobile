@@ -23,7 +23,6 @@ export const DeleteListing = () => {
           title={`delete: ${selectedListing?.name}?`}
           onPress={() => {
             const response = deleteListing.mutate(selectedListing?.name);
-            console.log(response);
           }}
         />
       )}

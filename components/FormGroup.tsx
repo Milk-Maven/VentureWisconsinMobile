@@ -8,19 +8,23 @@ import {
   View,
 } from "react-native";
 import { z, ZodError } from "zod";
-import { COLORS, FONT_WEIGHT } from "../utils/consts";
+import { COLORS, FONT_SIZE, FONT_WEIGHT } from "../utils/consts";
+import { camel2title } from "../utils/utils";
 
 export interface FormGroupProps<T> {
   formDefaultValue: T;
   formKeys: Array<keyof T>;
   formValidator: z.ZodObject<any>;
   onSubmit: any;
+  submitText?: string;
 }
+
 export const FormGroup = <T extends Object>({
   formDefaultValue,
   formKeys,
   formValidator,
   onSubmit,
+  submitText = "submit",
 }: FormGroupProps<T>) => {
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
   const clear = () => {
@@ -51,7 +55,6 @@ export const FormGroup = <T extends Object>({
     };
     return previous;
   }, {});
-
   const [createdId, setCreatedId] = React.useState(0);
   return (
     <>
@@ -68,11 +71,12 @@ export const FormGroup = <T extends Object>({
                 }}
               >
                 <Text style={styles.inputText} key={`${i}text`}>
-                  {input}
+                  {camel2title(input)}
                 </Text>
                 <Text style={{ color: "red" }}>{formErrors[input]}</Text>
               </View>
               <TextInput
+                secureTextEntry={input === "password"}
                 key={`${i}input`}
                 style={styles.input}
                 onChangeText={formState[input].set}
@@ -83,10 +87,8 @@ export const FormGroup = <T extends Object>({
         })}
         <View
           style={{
-            display: "flex",
-            flexDirection: "row",
             flex: 1,
-            justifyContent: "space-around",
+            paddingHorizontal: 10,
           }}
         >
           <TouchableOpacity
@@ -94,18 +96,7 @@ export const FormGroup = <T extends Object>({
               ...styles.button,
             }}
             onPress={async () => {
-              clear();
-            }}
-          >
-            <Text style={styles.buttonText}>clear</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              ...styles.button,
-            }}
-            onPress={async () => {
               try {
-                console.log("in");
                 const formValues = Object.keys(formState).reduce(
                   (prev, curr) => {
                     return { ...prev, [curr]: formState[curr].get };
@@ -113,7 +104,6 @@ export const FormGroup = <T extends Object>({
                   {}
                 );
                 const parsedPayload = formValidator.parse(formValues) as T;
-                console.log(parsedPayload);
                 onSubmit(parsedPayload);
               } catch (e) {
                 console.log(e);
@@ -126,20 +116,20 @@ export const FormGroup = <T extends Object>({
               }
             }}
           >
-            <Text style={styles.buttonText}>Submit</Text>
+            <Text style={styles.buttonText}>{submitText}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              ...styles.button,
+            }}
+            onPress={async () => {
+              clear();
+            }}
+          >
+            <Text style={styles.buttonText}>clear</Text>
           </TouchableOpacity>
         </View>
-        <View>
-          <Text style={{ textAlign: "center" }}>listingID: {createdId} </Text>
-        </View>
       </ScrollView>
-      <View
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "row",
-        }}
-      ></View>
     </>
   );
 };
@@ -154,17 +144,16 @@ const styles = StyleSheet.create({
     paddingTop: 0,
   },
   inputText: {
-    // paddingLeft: 13,
     paddingBottom: 0,
+    fontWeight: FONT_WEIGHT.BOLD,
   },
   button: {
     backgroundColor: COLORS.SECONDARY_RED,
     borderWidth: 1,
-    borderColor: "#4a4a4a",
+    borderColor: COLORS.BLACK,
     borderRadius: 5,
-    width: 80,
-    height: 30,
-    color: COLORS.WHITE,
+    margin: 12,
+    height: 40,
     display: "flex",
     justifyContent: "center",
     marginHorizontal: "auto",
@@ -172,12 +161,13 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     color: COLORS.WHITE,
+    fontSize: FONT_SIZE.MEDIUM,
     fontWeight: FONT_WEIGHT.X_BOLD,
   },
   container: {
     width: "100%",
     display: "flex",
-    paddingBottom: 280,
+    // paddingBottom: 280,
     paddingTop: 5,
     paddingHorizontal: 5,
     justifyContent: "center",

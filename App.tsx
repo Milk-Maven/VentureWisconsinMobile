@@ -8,10 +8,10 @@ import { t } from "./providers/providers";
 import { httpBatchLink } from "@trpc/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BottomNavigation } from "./components/BottomNavigation";
-import { UserPage } from "./pages/User/UserPage";
-import { AdminPage } from "./pages/Admin/AdminPage";
-import { ListingPage } from "./pages/Listing/ListingPage";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LoginPage } from "./pages/Login/LoginPage";
+import { CreateNewUserPage } from "./pages/Login/CreateNewUserPage";
 const Stack = createNativeStackNavigator();
 export default function App() {
   const [queryClient] = useState(() => new QueryClient());
@@ -24,18 +24,28 @@ export default function App() {
       ],
     })
   );
-  const [users, setUsers] = useState("");
   useEffect(() => {
-    // getUsers();
+    needsToLoginOrCreateAccount();
   }, []);
 
+  const needsToLoginOrCreateAccount = async (): Promise<{
+    secretPhrase: null | string;
+    email: null | string;
+  }> => {
+    const email = await AsyncStorage.getItem("email");
+    if (email === null) {
+      return { secretPhrase: null, email: null };
+    }
+    const secretPhrase = await AsyncStorage.getItem(email);
+    return { secretPhrase, email };
+  };
   return (
     <t.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
         <RecoilRoot>
           <NavigationContainer>
             <Stack.Navigator>
-              <Stack.Screen
+              {/* <Stack.Screen
                 name={ROUTES.ADMIN_PAGE}
                 component={AdminPage}
                 options={{ title: "Admin", headerShown: false }}
@@ -49,6 +59,16 @@ export default function App() {
                 name={ROUTES.USER_PAGE}
                 component={UserPage}
                 options={{ title: "User", headerShown: false }}
+              /> */}
+              {/* <Stack.Screen
+                name={ROUTES.LOGIN_PAGE}
+                component={LoginPage}
+                options={{ title: "Create Account", headerShown: false }}
+              /> */}
+              <Stack.Screen
+                name={ROUTES.CREATE_NEW_USER_PAGE}
+                component={CreateNewUserPage}
+                options={{ title: "Create Account", headerShown: false }}
               />
             </Stack.Navigator>
             <BottomNavigation />
@@ -58,6 +78,8 @@ export default function App() {
     </t.Provider>
   );
 }
+
+export const fetchUser = () => {};
 
 const styles = StyleSheet.create({
   container: {

@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { z } from "zod";
 import { Listing } from "../../VentureWisconsinShared";
 
 export enum USER_ROLE {
@@ -11,6 +10,8 @@ export enum ROUTES {
   LISTING_PAGE = "MainPage",
   ADMIN_PAGE = "AdminPage",
   USER_PAGE = "UserPage",
+  LOGIN_PAGE = "LoginPage",
+  CREATE_NEW_USER_PAGE = "CreateNewUserPage",
 }
 
 export const BASE_URL: Readonly<string> = "http://localhost:3000/";
@@ -42,6 +43,14 @@ export enum FONT_SIZE {
   MEDIUM = 16,
   SMALL = 12,
 }
+
+export enum STORAGE_KEYS {
+  SESSION = "SESSION",
+  EMAIL = "EMAIL",
+}
+export const ERROR_MESSAGES = {
+  LETTERS_ONLY: { REGEX: new RegExp(/^[A-Za-zs]*$/), MESSAGE: "" },
+};
 
 export const globalStyles = StyleSheet.create({
   pageContainer: {

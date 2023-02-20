@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { FormGroup, listingSchema } from "../../components/FormGroup";
 import { DeleteListing } from "../Listing/DeleteListing";
-import { z } from "zod";
 import { t } from "../../providers/providers";
 import { SegmentedButtons } from "../../components/SegmentedButtons";
 import { UpdateListing } from "../Listing/UpdateListing";
 import { globalStyles, mockListing } from "../../utils/consts";
-import { Listing } from "../../../VentureWisconsinShared";
 
 export enum TableToModify {
   "listings" = "listings",
