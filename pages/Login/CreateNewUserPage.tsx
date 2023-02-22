@@ -42,13 +42,16 @@ export const CreateNewUserPage = () => {
             formKeys as Array<keyof Omit<User, "createdAt" | "id" | "role">>
           }
           formValidator={createNewUserSchema}
-          onSubmit={async (user: User) => {
-            const response = (await hook.mutate(
-              user as any
-            )) as unknown as User; // trpc being dumb
-            console.log(response);
-            AsyncStorage.setItem(STORAGE_KEYS.EMAIL, response.email);
-            AsyncStorage.setItem(STORAGE_KEYS.SESSION, response.password);
+          onSubmit={(user: User) => {
+            hook.mutate(user as any, {
+              onSuccess: (res) => {
+                console.log(res);
+                // AsyncStorage.removeItem(STORAGE_KEYS.EMAIL);
+                // AsyncStorage.removeItem(STORAGE_KEYS.SESSION);
+                AsyncStorage.setItem(STORAGE_KEYS.EMAIL, res.email);
+                AsyncStorage.setItem(STORAGE_KEYS.SESSION, res.password);
+              },
+            }); // trpc being dumb
           }}
         />
       </View>

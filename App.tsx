@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ROUTES } from "./utils/consts";
+import { StyleSheet } from "react-native";
 import { RecoilRoot } from "recoil";
 import { t } from "./providers/providers";
 import { httpBatchLink } from "@trpc/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BottomNavigation } from "./components/BottomNavigation";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LoginPage } from "./pages/Login/LoginPage";
-import { CreateNewUserPage } from "./pages/Login/CreateNewUserPage";
-const Stack = createNativeStackNavigator();
+import { Routing } from "./components/Routing";
 export default function App() {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
@@ -24,55 +16,12 @@ export default function App() {
       ],
     })
   );
-  useEffect(() => {
-    needsToLoginOrCreateAccount();
-  }, []);
 
-  const needsToLoginOrCreateAccount = async (): Promise<{
-    secretPhrase: null | string;
-    email: null | string;
-  }> => {
-    const email = await AsyncStorage.getItem("email");
-    if (email === null) {
-      return { secretPhrase: null, email: null };
-    }
-    const secretPhrase = await AsyncStorage.getItem(email);
-    return { secretPhrase, email };
-  };
   return (
     <t.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
         <RecoilRoot>
-          <NavigationContainer>
-            <Stack.Navigator>
-              {/* <Stack.Screen
-                name={ROUTES.ADMIN_PAGE}
-                component={AdminPage}
-                options={{ title: "Admin", headerShown: false }}
-              />
-              <Stack.Screen
-                name={ROUTES.LISTING_PAGE}
-                component={ListingPage}
-                options={{ title: "Main", headerShown: false }}
-              />
-              <Stack.Screen
-                name={ROUTES.USER_PAGE}
-                component={UserPage}
-                options={{ title: "User", headerShown: false }}
-              /> */}
-              {/* <Stack.Screen
-                name={ROUTES.LOGIN_PAGE}
-                component={LoginPage}
-                options={{ title: "Create Account", headerShown: false }}
-              /> */}
-              <Stack.Screen
-                name={ROUTES.CREATE_NEW_USER_PAGE}
-                component={CreateNewUserPage}
-                options={{ title: "Create Account", headerShown: false }}
-              />
-            </Stack.Navigator>
-            <BottomNavigation />
-          </NavigationContainer>
+          <Routing></Routing>
         </RecoilRoot>
       </QueryClientProvider>
     </t.Provider>

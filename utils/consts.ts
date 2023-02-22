@@ -49,7 +49,7 @@ export enum STORAGE_KEYS {
   EMAIL = "EMAIL",
 }
 export const ERROR_MESSAGES = {
-  LETTERS_ONLY: { REGEX: new RegExp(/^[A-Za-zs]*$/), MESSAGE: "" },
+  LETTERS_ONLY: { REGEX: new RegExp(/^[A-Za-zs]*$/), MESSAGE: "letters only" },
 };
 
 export const globalStyles = StyleSheet.create({
