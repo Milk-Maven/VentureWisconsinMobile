@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable, Button } from "react-native";
 import { COLORS, ROUTES } from "../utils/consts";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
@@ -65,6 +65,14 @@ export const BottomNavigation = () => {
                 ? COLORS.MAIN_YELLOW
                 : COLORS.WHITE,
           }}
+        />
+
+        <Button
+          onPress={() => {
+            // @ts-ignore
+            navigation?.navigate(ROUTES.DEVELOPMENT, {});
+          }}
+          title="dev"
         />
       </View>
     </>

@@ -12,6 +12,7 @@ export enum ROUTES {
   USER_PAGE = "UserPage",
   LOGIN_PAGE = "LoginPage",
   CREATE_NEW_USER_PAGE = "CreateNewUserPage",
+  DEVELOPMENT = "Development",
 }
 
 export const BASE_URL: Readonly<string> = "http://localhost:3000/";

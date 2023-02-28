@@ -26,6 +26,7 @@
     "react-native": "0.70.5",
     "react-native-asset": "^2.0.1",
     "react-native-autocomplete-dropdown": "^2.1.0",
+    "react-native-toast-message": "^2.1.6",
     "react-native-vector-icons": "^9.2.0",
     "recoil": "^0.7.6",
     "zod": "^3.20.2"

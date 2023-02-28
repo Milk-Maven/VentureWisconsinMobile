@@ -9,5 +9,5 @@ export const atomSearchedListing = atom({
 
 export const atomSession = atom<UserSession>({
   key: "session", // set the session
-  default: { session: "", email: "" }, // default value (aka initial value)
+  default: { session: null, email: null }, // default value (aka initial value)
 });

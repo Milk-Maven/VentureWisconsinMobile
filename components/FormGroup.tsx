@@ -12,10 +12,10 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT } from "../utils/consts";
 import { camel2title } from "../utils/utils";
 
 export interface FormGroupProps<T> {
-  formDefaultValue: T;
+  formDefaultValue: Partial<T>;
   formKeys: Array<keyof T>;
   formValidator: z.ZodObject<any>;
-  onSubmit: any;
+  onSubmit: (payload: T) => void;
   submitText?: string;
 }
 
