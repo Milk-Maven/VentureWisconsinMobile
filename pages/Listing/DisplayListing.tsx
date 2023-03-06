@@ -10,7 +10,6 @@ import {
 } from "../..//utils/consts";
 import { Pill } from "../../components/Pill";
 import { ImageDisplay } from "./ImageDisplay";
-import { t } from "../../providers/providers";
 export const DisplayListing: React.FC<{
   listing: Listing;
 }> = ({ listing }) => {

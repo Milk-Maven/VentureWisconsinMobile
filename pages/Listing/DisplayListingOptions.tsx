@@ -2,23 +2,23 @@ import React, { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Listing } from "../../../VentureWisconsinShared";
 import { UserSession } from "../../providers/Auth";
 import { t } from "../../providers/providers";
 import { COLORS, SPACING } from "../../utils/consts";
 import { atomSelectedListing, atomSession } from "../../utils/recoil";
 import openMap from "react-native-open-maps";
+import { useIsFocused } from "@react-navigation/native";
+
 type PinText = "pin it" | "unpin it";
 export const DisplayListingOptions: React.FC<{
   onNext: Function;
   onPrevious: Function;
 }> = ({ onNext, onPrevious }) => {
   const [pinText, setPinText] = useState<PinText>("pin it");
-  const [session, setUserSession] = useRecoilState<UserSession>(atomSession);
-  const [selectedListing, setListing] = useRecoilState<Listing | null>(
-    atomSelectedListing
-  );
+  const session = useRecoilValue<UserSession>(atomSession);
+  const selectedListing = useRecoilValue<Listing | null>(atomSelectedListing);
   const pinListing = t.userPinListing.useMutation({});
   const userUnPinListing = t.userUnPinListing.useMutation();
   const getUserPins = t.getUserPins.useMutation({});
@@ -62,6 +62,10 @@ export const DisplayListingOptions: React.FC<{
     }
   };
   useEffect(() => {
+    console.log("uh");
+  }, []);
+  useEffect(() => {
+    console.log("swap");
     if (session.email) {
       getUserPins.mutate(session.email, {
         onSuccess: (res) => {
@@ -70,7 +74,7 @@ export const DisplayListingOptions: React.FC<{
         },
       });
     }
-  }, [session]);
+  }, [useIsFocused()]);
   return (
     <View
       style={{

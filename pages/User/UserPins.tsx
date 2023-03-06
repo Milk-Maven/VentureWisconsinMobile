@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import Toast from "react-native-toast-message";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useRecoilState } from "recoil";
-import { Listing } from "../../../VentureWisconsinShared";
 import { ImagePreview } from "../../components/ImagePreview";
 import { UserSession } from "../../providers/Auth";
 import { t } from "../../providers/providers";
@@ -16,13 +16,14 @@ import {
   COLORS,
 } from "../../utils/consts"; // get all listings that a user has bookmarked
 import { atomSession } from "../../utils/recoil";
+import { useIsFocused } from "@react-navigation/native";
 
 export const UserPins = () => {
   const [userPins, setUserPins] = useState<any[]>([]);
-
   const getUserPins = t.getUserPins.useMutation({});
+  const [unpin, setUnPin] = useState(0);
   const [session, setUserSession] = useRecoilState<UserSession>(atomSession);
-  useEffect(() => {
+  const refreshPins = () => {
     if (session.email) {
       getUserPins.mutate(session.email, {
         onSuccess: (res) => {
@@ -73,7 +74,26 @@ export const UserPins = () => {
                   }}
                 >
                   <MaterialIcons
-                    onPress={() => {
+                    onPress={async () => {
+                      {
+                        userUnPinListing.mutate(
+                          {
+                            listingName: listing.name,
+                            userEmail: session.email as string,
+                          },
+                          {
+                            onSuccess: () => {
+                              setUnPin((p) => p + 1);
+                              Toast.show({
+                                type: "success",
+                                text1: "successfully unpinned",
+                                position: "bottom",
+                                visibilityTime: 1000,
+                              });
+                            },
+                          }
+                        );
+                      }
                       // call api to remove from users bookmarks
                     }}
                     name="clear"
@@ -84,14 +104,20 @@ export const UserPins = () => {
               </Pressable>
             );
           });
-          console.log(pins.length);
           setUserPins(pins);
         },
       });
     }
-  }, [session]);
+  };
+  // useEffect(() => {
+  //   console.log("wtf");
+  // }, [useIsFocused]);
+  useEffect(() => {
+    refreshPins();
+  }, [useIsFocused()]);
+  useEffect(() => refreshPins(), [unpin]);
+
   const userUnPinListing = t.userUnPinListing.useMutation();
-  const mockListing: Listing[] = [];
   const navigation = useNavigation();
   return (
     <ScrollView>
