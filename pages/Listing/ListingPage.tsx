@@ -3,19 +3,25 @@ import { Listing } from "../../../VentureWisconsinShared";
 import { DisplayListing } from "./DisplayListing";
 import { t } from "../../providers/providers";
 import { DisplayListingOptions } from "./DisplayListingOptions";
-import { globalStyles, mockListing } from "../../utils/consts";
+import { globalStyles } from "../../utils/consts";
 import { Text, View } from "react-native";
+import { useRecoilState } from "recoil";
+import { atomSelectedListing } from "../../utils/recoil";
 // @ts-ignore
 export const ListingPage = ({ route }) => {
-  const getListings$ = t.listingGetAll.useQuery({ name: "" });
-  const [selectedListing, setListing] = useState<Listing | null>(null);
-  // useEffect(() => {
-  //   const defaultListing =
-  //     route?.params?.defaultListing || getListings$?.data?.[0];
-  //   if (defaultListing) {
-  //     setListing(defaultListing);
-  //   }
-  // }, []);
+  const getListings$ = t.listingGetAll.useQuery(
+    { name: "" },
+    {
+      onSuccess: (res) => {
+        setListings(res);
+      },
+    }
+  );
+  const [listings, setListings] = useState<Listing[]>([]);
+  const [selectedListing, setListing] = useRecoilState<Listing | null>(
+    atomSelectedListing
+  );
+
   useEffect(() => {
     const defaultListing =
       route?.params?.defaultListing || getListings$?.data?.[0];
@@ -30,10 +36,10 @@ export const ListingPage = ({ route }) => {
           <DisplayListing listing={selectedListing}></DisplayListing>
           <DisplayListingOptions
             onNext={() => {
-              const listingToShow = getListings$.data?.reduce<Listing>(
+              const listingToShow = listings.reduce<Listing>(
                 (prev, curr, index) => {
                   if (curr.id === selectedListing.id) {
-                    return mockListing[index + 1] ?? mockListing[0];
+                    return listings[index + 1] ?? listings[0];
                   }
                   return prev;
                 },
@@ -42,13 +48,10 @@ export const ListingPage = ({ route }) => {
               setListing(listingToShow ?? ({} as Listing));
             }}
             onPrevious={() => {
-              const listingToShow = mockListing.reduce<Listing>(
+              const listingToShow = listings.reduce<Listing>(
                 (prev, curr, index) => {
                   if (curr.id === selectedListing.id) {
-                    return (
-                      mockListing[index - 1] ??
-                      mockListing[mockListing.length - 1]
-                    );
+                    return listings[index - 1] ?? listings[listings.length - 1];
                   }
                   return prev;
                 },

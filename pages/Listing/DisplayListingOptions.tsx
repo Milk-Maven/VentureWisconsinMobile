@@ -1,12 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import Toast from "react-native-toast-message";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { useRecoilState } from "recoil";
+import { Listing } from "../../../VentureWisconsinShared";
+import { UserSession } from "../../providers/Auth";
+import { t } from "../../providers/providers";
 import { COLORS, SPACING } from "../../utils/consts";
-
+import { atomSelectedListing, atomSession } from "../../utils/recoil";
+import openMap from "react-native-open-maps";
+type PinText = "pin it" | "unpin it";
 export const DisplayListingOptions: React.FC<{
   onNext: Function;
   onPrevious: Function;
 }> = ({ onNext, onPrevious }) => {
+  const [pinText, setPinText] = useState<PinText>("pin it");
+  const [session, setUserSession] = useRecoilState<UserSession>(atomSession);
+  const [selectedListing, setListing] = useRecoilState<Listing | null>(
+    atomSelectedListing
+  );
+  const pinListing = t.userPinListing.useMutation({});
+  const userUnPinListing = t.userUnPinListing.useMutation();
+  const getUserPins = t.getUserPins.useMutation({});
+  const onPin = async () => {
+    if (pinText === "pin it" && selectedListing) {
+      await pinListing.mutate(
+        {
+          listingName: selectedListing.name,
+          userEmail: session.email as string,
+        },
+        {
+          onSuccess: () => {
+            setPinText("unpin it");
+            Toast.show({
+              type: "success",
+              text1: "successfully pinned",
+              position: "bottom",
+              visibilityTime: 1000,
+            });
+          },
+        }
+      );
+    } else if (pinText === "unpin it" && selectedListing) {
+      userUnPinListing.mutate(
+        {
+          listingName: selectedListing.name,
+          userEmail: session.email as string,
+        },
+        {
+          onSuccess: () => {
+            setPinText("pin it");
+            Toast.show({
+              type: "success",
+              text1: "successfully unpinned",
+              position: "bottom",
+              visibilityTime: 1000,
+            });
+          },
+        }
+      );
+    }
+  };
+  useEffect(() => {
+    if (session.email) {
+      getUserPins.mutate(session.email, {
+        onSuccess: (res) => {
+          const isPinned = !!res.find((pin) => pin.id === selectedListing?.id);
+          isPinned ? setPinText("unpin it") : setPinText("pin it");
+        },
+      });
+    }
+  }, [session]);
   return (
     <View
       style={{
@@ -21,9 +85,7 @@ export const DisplayListingOptions: React.FC<{
         style={{
           flex: 1,
         }}
-        onPress={() => {
-          onPrevious();
-        }}
+        onPress={() => onPrevious()}
       >
         <MaterialIcons
           name="keyboard-arrow-left"
@@ -37,7 +99,9 @@ export const DisplayListingOptions: React.FC<{
           flex: 2,
           borderLeftWidth: 1,
         }}
-        onPress={() => {}}
+        onPress={() => {
+          openMap({ query: selectedListing?.name });
+        }}
       >
         <MaterialIcons
           name="directions"
@@ -47,14 +111,17 @@ export const DisplayListingOptions: React.FC<{
         />
         <Text style={{ textAlign: "center" }}>directions</Text>
       </Pressable>
-      <Pressable style={{ flex: 2, borderLeftWidth: 1 }} onPress={() => {}}>
+      <Pressable
+        style={{ flex: 2, borderLeftWidth: 1 }}
+        onPress={() => onPin()}
+      >
         <MaterialIcons
           style={{ textAlign: "center" }}
           name="push-pin"
           size={25}
           color={COLORS.SECONDARY_RED}
         />
-        <Text style={{ textAlign: "center" }}>Pin it</Text>
+        <Text style={{ textAlign: "center" }}>{pinText}</Text>
       </Pressable>
       <Pressable style={{ flex: 2, borderLeftWidth: 1 }} onPress={() => {}}>
         <MaterialIcons
@@ -71,9 +138,7 @@ export const DisplayListingOptions: React.FC<{
       </Pressable>
       <Pressable
         style={{ flex: 1, borderLeftWidth: 1 }}
-        onPress={() => {
-          onNext();
-        }}
+        onPress={() => onNext()}
       >
         <MaterialIcons
           name="keyboard-arrow-right"

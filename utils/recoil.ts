@@ -11,3 +11,8 @@ export const atomSession = atom<UserSession>({
   key: "session", // set the session
   default: { session: null, email: null }, // default value (aka initial value)
 });
+
+export const atomSelectedListing = atom<Listing | null>({
+  key: "selectedListing", // set the session
+  default: null, // default value (aka initial value)
+});

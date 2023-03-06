@@ -5,7 +5,7 @@ import { DeleteListing } from "../Listing/DeleteListing";
 import { t } from "../../providers/providers";
 import { SegmentedButtons } from "../../components/SegmentedButtons";
 import { UpdateListing } from "../Listing/UpdateListing";
-import { globalStyles, mockListing } from "../../utils/consts";
+import { globalStyles } from "../../utils/consts";
 
 export enum TableToModify {
   "listings" = "listings",
@@ -77,7 +77,7 @@ export const AdminPage = () => {
           <View>
             {action === Action.create && (
               <FormGroup
-                formDefaultValue={mockListing[0]}
+                formDefaultValue={{}}
                 formKeys={[
                   "address",
                   "attributes",
