@@ -10,12 +10,14 @@ import { COLORS, SPACING } from "../../utils/consts";
 import { atomSelectedListing, atomSession } from "../../utils/recoil";
 import openMap from "react-native-open-maps";
 import { useIsFocused } from "@react-navigation/native";
+import CouponModal from "../../components/CouponModal";
 
 type PinText = "pin it" | "unpin it";
 export const DisplayListingOptions: React.FC<{
   onNext: Function;
   onPrevious: Function;
 }> = ({ onNext, onPrevious }) => {
+  const [modalVisible, setModalVisible] = useState(false);
   const [pinText, setPinText] = useState<PinText>("pin it");
   const session = useRecoilValue<UserSession>(atomSession);
   const selectedListing = useRecoilValue<Listing | null>(atomSelectedListing);
@@ -76,82 +78,90 @@ export const DisplayListingOptions: React.FC<{
     }
   }, [useIsFocused()]);
   return (
-    <View
-      style={{
-        ...styles.textBubble,
-        display: "flex",
-        justifyContent: "space-between",
-        flexDirection: "row",
-        padding: SPACING.SMALL,
-      }}
-    >
-      <Pressable
+    <>
+      <View
         style={{
-          flex: 1,
-        }}
-        onPress={() => onPrevious()}
-      >
-        <MaterialIcons
-          name="keyboard-arrow-left"
-          style={{ textAlign: "left" }}
-          size={40}
-          color={COLORS.SECONDARY_RED}
-        />
-      </Pressable>
-      <Pressable
-        style={{
-          flex: 2,
-          borderLeftWidth: 1,
-        }}
-        onPress={() => {
-          openMap({ query: selectedListing?.name });
+          ...styles.textBubble,
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          padding: SPACING.SMALL,
         }}
       >
-        <MaterialIcons
-          name="directions"
-          size={25}
-          style={{ textAlign: "center" }}
-          color={COLORS.SECONDARY_RED}
-        />
-        <Text style={{ textAlign: "center" }}>directions</Text>
-      </Pressable>
-      <Pressable
-        style={{ flex: 2, borderLeftWidth: 1 }}
-        onPress={() => onPin()}
-      >
-        <MaterialIcons
-          style={{ textAlign: "center" }}
-          name="push-pin"
-          size={25}
-          color={COLORS.SECONDARY_RED}
-        />
-        <Text style={{ textAlign: "center" }}>{pinText}</Text>
-      </Pressable>
-      <Pressable style={{ flex: 2, borderLeftWidth: 1 }} onPress={() => {}}>
-        <MaterialIcons
-          name="description"
+        <Pressable
           style={{
-            textAlign: "center",
-            borderColor: COLORS.GREY,
-            // bro,
+            flex: 1,
           }}
-          size={25}
-          color={COLORS.SECONDARY_RED}
-        />
-        <Text style={{ textAlign: "center" }}>coupon</Text>
-      </Pressable>
-      <Pressable
-        style={{ flex: 1, borderLeftWidth: 1 }}
-        onPress={() => onNext()}
-      >
-        <MaterialIcons
-          name="keyboard-arrow-right"
-          style={{ textAlign: "right" }}
-          size={40}
-          color={COLORS.SECONDARY_RED}
-        />
-      </Pressable>
-    </View>
+          onPress={() => onPrevious()}
+        >
+          <MaterialIcons
+            name="keyboard-arrow-left"
+            style={{ textAlign: "left" }}
+            size={40}
+            color={COLORS.SECONDARY_RED}
+          />
+        </Pressable>
+        <Pressable
+          style={{
+            flex: 2,
+            borderLeftWidth: 1,
+          }}
+          onPress={() => {
+            openMap({ query: selectedListing?.name });
+          }}
+        >
+          <MaterialIcons
+            name="directions"
+            size={25}
+            style={{ textAlign: "center" }}
+            color={COLORS.SECONDARY_RED}
+          />
+          <Text style={{ textAlign: "center" }}>directions</Text>
+        </Pressable>
+        <Pressable
+          style={{ flex: 2, borderLeftWidth: 1 }}
+          onPress={() => onPin()}
+        >
+          <MaterialIcons
+            style={{ textAlign: "center" }}
+            name="push-pin"
+            size={25}
+            color={COLORS.SECONDARY_RED}
+          />
+          <Text style={{ textAlign: "center" }}>{pinText}</Text>
+        </Pressable>
+        {/* <Pressable
+          style={{ flex: 2, borderLeftWidth: 1 }}
+          onPress={() => {
+            CouponModal;
+          }}
+        >
+          <MaterialIcons
+            name="description"
+            style={{
+              textAlign: "center",
+              borderColor: COLORS.GREY,
+              // bro,
+            }}
+            size={25}
+            color={COLORS.SECONDARY_RED}
+          />
+          <Text style={{ textAlign: "center" }}>coupon</Text>
+        </Pressable> */}
+        <CouponModal />
+        <Pressable
+          style={{ flex: 1, borderLeftWidth: 1 }}
+          onPress={() => onNext()}
+        >
+          <MaterialIcons
+            name="keyboard-arrow-right"
+            style={{ textAlign: "right" }}
+            size={40}
+            color={COLORS.SECONDARY_RED}
+          />
+        </Pressable>
+      </View>
+    </>
   );
 };
 const styles = StyleSheet.create({

@@ -17,7 +17,6 @@ import {
 } from "../../utils/consts"; // get all listings that a user has bookmarked
 import { atomSession } from "../../utils/recoil";
 import { useIsFocused } from "@react-navigation/native";
-
 export const UserPins = () => {
   const [userPins, setUserPins] = useState<any[]>([]);
   const getUserPins = t.getUserPins.useMutation({});
@@ -109,9 +108,7 @@ export const UserPins = () => {
       });
     }
   };
-  // useEffect(() => {
-  //   console.log("wtf");
-  // }, [useIsFocused]);
+
   useEffect(() => {
     refreshPins();
   }, [useIsFocused()]);

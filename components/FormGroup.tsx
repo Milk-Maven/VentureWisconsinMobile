@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { z, ZodError } from "zod";
-import { COLORS, FONT_SIZE, FONT_WEIGHT } from "../utils/consts";
+import { FONT_WEIGHT, globalStyles } from "../utils/consts";
 import { camel2title } from "../utils/utils";
 
 export interface FormGroupProps<T> {
@@ -92,9 +92,7 @@ export const FormGroup = <T extends Object>({
           }}
         >
           <TouchableOpacity
-            style={{
-              ...styles.button,
-            }}
+            style={globalStyles.button}
             onPress={async () => {
               try {
                 const formValues = Object.keys(formState).reduce(
@@ -116,17 +114,15 @@ export const FormGroup = <T extends Object>({
               }
             }}
           >
-            <Text style={styles.buttonText}>{submitText}</Text>
+            <Text style={globalStyles.buttonText}>{submitText}</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{
-              ...styles.button,
-            }}
+            style={globalStyles.button}
             onPress={async () => {
               clear();
             }}
           >
-            <Text style={styles.buttonText}>clear</Text>
+            <Text style={globalStyles.buttonText}>clear</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -146,23 +142,6 @@ const styles = StyleSheet.create({
   inputText: {
     paddingBottom: 0,
     fontWeight: FONT_WEIGHT.BOLD,
-  },
-  button: {
-    backgroundColor: COLORS.SECONDARY_RED,
-    borderWidth: 1,
-    borderColor: COLORS.BLACK,
-    borderRadius: 5,
-    margin: 12,
-    height: 40,
-    display: "flex",
-    justifyContent: "center",
-    marginHorizontal: "auto",
-  },
-  buttonText: {
-    textAlign: "center",
-    color: COLORS.WHITE,
-    fontSize: FONT_SIZE.MEDIUM,
-    fontWeight: FONT_WEIGHT.X_BOLD,
   },
   container: {
     width: "100%",

@@ -76,6 +76,24 @@ export const globalStyles = StyleSheet.create({
     textAlign: "center",
     paddingVertical: 5,
   },
+
+  button: {
+    backgroundColor: COLORS.SECONDARY_RED,
+    borderWidth: 1,
+    borderColor: COLORS.BLACK,
+    borderRadius: 5,
+    margin: 12,
+    height: 40,
+    display: "flex",
+    justifyContent: "center",
+    marginHorizontal: "auto",
+  },
+  buttonText: {
+    textAlign: "center",
+    color: COLORS.WHITE,
+    fontSize: FONT_SIZE.MEDIUM,
+    fontWeight: FONT_WEIGHT.X_BOLD,
+  },
 });
 
 // export const mockListing: Listing[] = [
