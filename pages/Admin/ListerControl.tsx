@@ -1,23 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import React, { useState } from "react";
+import { View, Text } from "react-native";
 import { FormGroup, listingSchema } from "../../components/FormGroup";
-import { DeleteListing } from "../Listing/DeleteListing";
-import { t } from "../../providers/providers";
 import { SegmentedButtons } from "../../components/SegmentedButtons";
+import { DeleteListing } from "../Listing/DeleteListing";
 import { UpdateListing } from "../Listing/UpdateListing";
-import { Action, globalStyles, TableToModify } from "../../utils/consts";
-import { CreateListing } from "../Listing/CreateListing";
-import { CreateCoupon } from "../Coupon/CreateCoupon";
-import { UpdateCoupon } from "../Coupon/UpdateCoupon";
-import { DeleteCoupon } from "../Coupon/DeleteCoupon";
 
-export const AdminPage = () => {
+import { Action, globalStyles, TableToModify } from "../../utils/consts";
+export const ListerControl = () => {
   const [action, setAction] = useState<"create" | "update" | "delete">(
     Action.create
   );
   const [table, setFeature] = useState<TableToModify>(TableToModify.listings);
-
-  useEffect(() => {}, []);
   return (
     <View style={globalStyles.pageContainer}>
       <View style={globalStyles.textBubble}>
@@ -34,12 +27,6 @@ export const AdminPage = () => {
               text: TableToModify.coupons,
               onPress: () => {
                 setFeature(TableToModify.coupons);
-              },
-            },
-            {
-              text: TableToModify.users,
-              onPress: () => {
-                setFeature(TableToModify.users);
               },
             },
           ]}
@@ -68,19 +55,14 @@ export const AdminPage = () => {
         />
         {table === TableToModify.listings && (
           <View>
-            {action === Action.create && <CreateListing />}
+            {action === Action.create && (
+            )}
             {action === Action.update && <UpdateListing />}
             {action === Action.delete && <DeleteListing />}
           </View>
         )}
 
-        {table === TableToModify.coupons && (
-          <View>
-            {action === Action.create && <CreateCoupon />}
-            {action === Action.update && <UpdateCoupon />}
-            {action === Action.delete && <DeleteCoupon />}
-          </View>
-        )}
+        {table === TableToModify.coupons && <View></View>}
         {table === TableToModify.users && <View></View>}
       </View>
     </View>

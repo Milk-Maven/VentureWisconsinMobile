@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { COLORS, FONT_SIZE } from "../utils/consts";
-
+import { COLORS, FONT_SIZE, globalStyles } from "../utils/consts";
 export const CouponModal: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={{ flex: 2 }}>
       <Modal
@@ -21,13 +29,18 @@ export const CouponModal: React.FC = () => {
             <Text style={styles.modalText}>
               Display this to the bartender or server
             </Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
+            <TouchableOpacity
+              style={{ ...globalStyles.button }}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text style={styles.textStyle}> Use coupon</Text>
-            </Pressable>
-            <Text style={{ fontSize: FONT_SIZE.SMALL, marginTop: 15 }}>
+              <Text
+                style={{ ...globalStyles.buttonText, paddingHorizontal: 10 }}
+              >
+                {" "}
+                Use coupon
+              </Text>
+            </TouchableOpacity>
+            <Text style={{ fontSize: FONT_SIZE.SMALL, marginTop: 5 }}>
               Coupons can only be used once
             </Text>
           </View>
@@ -36,7 +49,6 @@ export const CouponModal: React.FC = () => {
       <Pressable
         style={{ flex: 2, borderLeftWidth: 1 }}
         onPress={() => {
-          console.log("in");
           setModalVisible(true);
         }}
       >
@@ -77,17 +89,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  button: {
-    // borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
   textStyle: {
     color: "white",
     fontWeight: "bold",
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: FONT_SIZE.MEDIUM,
-    marginBottom: 15,
+    marginBottom: 5,
     textAlign: "center",
   },
 });

@@ -67,13 +67,13 @@ export const BottomNavigation = () => {
           }}
         />
 
-        <Button
+        {/* <Button
           onPress={() => {
             // @ts-ignore
             navigation?.navigate(ROUTES.DEVELOPMENT, {});
           }}
           title="dev"
-        />
+        /> */}
       </View>
     </>
   );

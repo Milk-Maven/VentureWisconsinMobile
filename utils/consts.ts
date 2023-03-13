@@ -1,11 +1,8 @@
 import { StyleSheet } from "react-native";
-import { Listing } from "../../VentureWisconsinShared";
-
 export enum USER_ROLE {
   "ADMIN" = "ADMIN",
   "USER" = "USER",
 }
-
 export enum ROUTES {
   LISTING_PAGE = "MainPage",
   ADMIN_PAGE = "AdminPage",
@@ -14,22 +11,18 @@ export enum ROUTES {
   CREATE_NEW_USER_PAGE = "CreateNewUserPage",
   DEVELOPMENT = "Development",
 }
-
 export const BASE_URL: Readonly<string> = "http://localhost:3000/";
-
 export enum SPACING {
   LARGE = 50,
   MEDIUM = 30,
   SMALL = 10,
 }
-
 export enum FONT_WEIGHT {
   THIN = "200",
   MEDIUM = "400",
   BOLD = "600",
   X_BOLD = "800",
 }
-
 export enum COLORS {
   BLACK = "#545454",
   MAIN_YELLOW = "#fccf13",
@@ -37,14 +30,12 @@ export enum COLORS {
   SECONDARY_RED = "red",
   WHITE = "#fff",
 }
-
 export enum FONT_SIZE {
   X_LARGE = 32,
   LARGE = 24,
   MEDIUM = 16,
   SMALL = 12,
 }
-
 export enum STORAGE_KEYS {
   SESSION = "SESSION",
   EMAIL = "EMAIL",
@@ -52,13 +43,21 @@ export enum STORAGE_KEYS {
 export const ERROR_MESSAGES = {
   LETTERS_ONLY: { REGEX: new RegExp(/^[A-Za-zs]*$/), MESSAGE: "letters only" },
 };
-
+export enum TableToModify {
+  "listings" = "listings",
+  "coupons" = "coupons",
+  "users" = "users",
+}
+export enum Action {
+  "create" = "create",
+  "update" = "update",
+  "delete" = "delete",
+}
 export const globalStyles = StyleSheet.create({
   pageContainer: {
     flex: 1,
     marginTop: 50,
   },
-
   contentContainer: {
     flex: 1,
   },
@@ -76,7 +75,6 @@ export const globalStyles = StyleSheet.create({
     textAlign: "center",
     paddingVertical: 5,
   },
-
   button: {
     backgroundColor: COLORS.SECONDARY_RED,
     borderWidth: 1,

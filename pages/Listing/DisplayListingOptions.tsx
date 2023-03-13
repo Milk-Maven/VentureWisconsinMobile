@@ -130,24 +130,6 @@ export const DisplayListingOptions: React.FC<{
           />
           <Text style={{ textAlign: "center" }}>{pinText}</Text>
         </Pressable>
-        {/* <Pressable
-          style={{ flex: 2, borderLeftWidth: 1 }}
-          onPress={() => {
-            CouponModal;
-          }}
-        >
-          <MaterialIcons
-            name="description"
-            style={{
-              textAlign: "center",
-              borderColor: COLORS.GREY,
-              // bro,
-            }}
-            size={25}
-            color={COLORS.SECONDARY_RED}
-          />
-          <Text style={{ textAlign: "center" }}>coupon</Text>
-        </Pressable> */}
         <CouponModal />
         <Pressable
           style={{ flex: 1, borderLeftWidth: 1 }}
